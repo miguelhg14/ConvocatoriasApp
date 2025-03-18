@@ -1,0 +1,121 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+footer,header{
+    background-color: gray;
+    color: white;
+    text-align: center;
+    padding: 1rem;/* 16px */
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    color: white;
+    height: 100vh;/* altura del viewport de la ventana */
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Eje principal X*/
+    align-items: center; /* Eje principla Y*/
+    flex: 1;
+}
+
+.data-container{
+    border: 1px solid gainsboro;
+    padding: 1rem;
+    border-radius: .3rem;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.record{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: .2rem;
+}
+
+.buttons a{
+    cursor: pointer;
+    padding: .2rem;
+    background-color: rgb(53, 49, 49);
+    color: white;
+    border: none;
+    border-radius: .1rem;
+    text-decoration: none;
+}
+
+.buttons a:hover{
+    cursor: pointer;
+    padding: .2rem;
+    background-color: white;
+    color: rgb(53, 49, 49);
+    border: none;
+    border-radius: .1rem;
+    text-decoration: none;
+}
+
+.edit a{
+    cursor: pointer;
+    padding: .2rem;
+    background-color: yellow;
+    color: rgb(53, 49, 49);
+    border: none;
+    border-radius: .1rem;
+    text-decoration: none;
+}
+
+.view{
+    border: 1px solid gainsboro;
+    padding: 1rem;
+    border-radius: .3rem;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.view a{
+    cursor: pointer;
+    padding: .2rem;
+    background-color: rgb(53, 49, 49);
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    margin-bottom: .3rem;
+    width: 70%;
+    text-align: center;
+    text-decoration: none;
+}
+
+.view a:hover{
+    cursor: pointer;
+    padding: .2rem;
+    background-color: white;
+    color: rgb(53, 49, 49);
+    border: none;
+    border-radius: 1rem;
+    margin-bottom: .3rem;
+    width: 70%;
+    text-align: center;
+}
+
+
+.form-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.new{
+    text-align: center;
+}

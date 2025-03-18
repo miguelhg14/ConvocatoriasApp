@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #e0e0e0; /* Cambiado a un gris más claro */
+}
+
+.login-container {
+    background-color: #ffffff; /* Color blanco para el contenedor */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    width: 350px;
+  
+}
+
+h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], 
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 70%;
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+    display: block; /* Cambiado a block para centrar */
+    margin: 0 auto; /* Centrado horizontalmente */
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+.register-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.error {
+    color: red;
+    margin-bottom: 15px;
+}
+.checkbox-container {
+    text-align: left; /* Alineación a la izquierda */
+    margin-bottom: 15px;
+}
+
+.checkbox-group {
+    display: flex; /* Cambiado a flex para alineación horizontal */
+    align-items: center; /* Alinea verticalmente el checkbox y el texto */
+    margin-bottom: 10px; /* Espacio entre checkboxes */
+}
+
+/* Opcional: para quitar el margen del último checkbox */
+.checkbox-group:last-child {
+    margin-bottom: 0;
+}
+
+.checkbox-group input {
+    margin-right: 10px; /* Espacio entre el checkbox y el texto */
+}
+

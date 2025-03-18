@@ -1,0 +1,227 @@
+/* Estilo general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+html,
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f7fc;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Eliminar las viñetas de listas no ordenadas */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Establecer un comportamiento consistente para las imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Normalizar el comportamiento de las tablas */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Remover bordes y márgenes adicionales de los formularios */
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    border: none;
+    background: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* General */
+body {
+    display: flex;
+    height: 100vh;
+    background-color: aliceblue;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #0c0c5a;
+    color: white;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 1rem;
+    transition: width 0.3s ease;
+}
+
+/* Estilo cuando el menú está colapsado */
+.sidebar.collapsed {
+    width: 80px; /* Reduce el tamaño del menú */
+    color: #0c0c5a;
+}
+
+.sidebar-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.menu li {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.menu a {
+    color: white;
+    border-radius: 10px;
+    padding: 0.6rem;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.4s, padding 0.3s;
+    width: 100%;
+}
+
+.menu a:hover {
+    background-color: #0d22e0;
+    color: white;
+    border-radius: 10px;
+    padding: 0.6rem;
+}
+
+.menu a i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+/* Cuando el menú está colapsado, oculta el texto pero mantiene los iconos */
+.sidebar.collapsed .menu a span {
+    display: none; /* Ocultar el texto */
+}
+
+.logo-container span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Main content */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+.header {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    box-shadow: 0 0 10px grey;
+    background-color: #8d8484;
+    align-items: center;
+}
+
+.header .menu-toggle {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.header .menu-toggle:hover {
+    background-color: #444;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-container input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+.search-container button {
+    background-color: #0d22e0;
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #0b1d97;
+}
+
+.header-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.header-icons button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.header-icons button:hover {
+    color: #0d22e0;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
