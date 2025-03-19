@@ -40,15 +40,24 @@ class ProModel extends BaseModel
     public function getAllPrograma()
     {
         try {
-            $sql = "SELECT programaformacion.*, centroformacion.nombre AS nombreCentro FROM programaformacion
-                    INNER JOIN centroformacion
-                    ON programaformacion.FkIdCentroFormacion = centroformacion.id";
-            $statement = $this->dbConnection->query($sql);
-            //Obtenemos los datos en un array asociativo
+            $sql = "SELECT p.*, c.nombre AS nombreCentro 
+                    FROM {$this->table} p
+                    INNER JOIN centroformacion c
+                    ON p.FkIdCentroFormacion = c.id";
+            
+            $statement = $this->dbConnection->prepare($sql);
+            
+            if (!$statement->execute()) {
+                error_log("SQL Error: " . implode(", ", $statement->errorInfo()));
+                return [];
+            }
+            
             $result = $statement->fetchAll(PDO::FETCH_OBJ);
-            return $result;
+            return $result ?: [];
+            
         } catch (PDOException $ex) {
-            throw $ex;
+            error_log("Error in getAllPrograma: " . $ex->getMessage());
+            return [];
         }
     }
     public function getPrograma()

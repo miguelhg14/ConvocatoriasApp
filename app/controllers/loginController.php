@@ -46,7 +46,7 @@ class LoginController extends BaseController
             
             $userModel = new UserModel();
             if ($userModel->validarLogin($correo, $password)) {
-                header("Location: /dashboard");
+                header("Location: /rol/index");
                 exit();
             } else {
                 $error = "Correo o contraseña incorrectos";

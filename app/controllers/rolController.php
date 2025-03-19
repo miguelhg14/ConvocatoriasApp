@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Models\RolModel;
+use Exception;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
 require_once MAIN_APP_ROUTE . "../models/rolModel.php";
@@ -15,19 +16,25 @@ class RolController extends BaseController
     }
     public function index()
     {
-        // echo"<br>CONTROLLER> RolController";
-        // echo"<br>ACTION> index";                con Ctrl + K + C
-        // echo "<hr>";
-        //Se crea un objeto del modelo rol
-        $objRol = new RolModel();
-        $roles = $objRol->getAll();
-        //Llamando a la vista
-        $data = [
-            'title' => 'Lista roles',
-            "roles" => $roles,
-        ];
-        $this->render("rols/viewRol.php", $data);
-        //require_once MAIN_APP_ROUTE."../views/rols/viewRol.php";
+        try {
+            $objRol = new RolModel();
+            $roles = $objRol->getAll();
+            
+            $data = [
+                'title' => 'Lista roles',
+                "roles" => $roles,
+            ];
+            $this->render("rols/viewRol.php", $data);
+            
+        } catch (Exception $e) {
+            error_log("Error in RolController->index: " . $e->getMessage());
+            $data = [
+                'title' => 'Lista roles',
+                "roles" => [],
+                "error" => "Error al cargar los roles"
+            ];
+            $this->render("rols/viewRol.php", $data);
+        }
     }
 
     //Muestra un formulario para el new rol
@@ -58,7 +65,7 @@ class RolController extends BaseController
         $rolInfo = $objRol->getRol();
         $data = [
             "id" => $rolInfo[0]->id,
-            "nombre" => $rolInfo[0]->nombre,
+            "nombre" => $rolInfo[0]->tipoRol,
         ];
         $this->render("rols/viewOneRol.php", $data);
 

@@ -26,13 +26,25 @@ abstract class BaseModel
     public function getAll(): array
     {
         try {
-            $sql = "SELECT * FROM $this->table";
+            if (!$this->table) {
+                error_log("Table name not set in " . get_class($this));
+                return [];
+            }
+
+            $sql = "SELECT * FROM {$this->table}";
             $statement = $this->dbConnection->query($sql);
-            //Obtenemos los datos en un array asociativo
+            
+            if ($statement === false) {
+                error_log("Query failed: " . implode(", ", $this->dbConnection->errorInfo()));
+                return [];
+            }
+
             $result = $statement->fetchAll(PDO::FETCH_OBJ);
-            return $result;
+            return $result ?: [];
+            
         } catch (PDOException $ex) {
-            throw $ex;
+            error_log("Database error in getAll: " . $ex->getMessage());
+            return [];
         }
     }
 }
