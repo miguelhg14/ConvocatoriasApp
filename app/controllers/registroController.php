@@ -22,13 +22,13 @@ class RegistroController extends BaseController
         // Verificar si el formulario fue enviado
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Obtener y limpiar los datos del formulario
-            $tipoUsuario = $_POST['txtTipoUsuario'] ?? '';
-            $nombre = $_POST['txtNombre'] ?? '';
-            $tipoDocumento = $_POST['txtTipoDocumento'] ?? '';
-            $documento = $_POST['txtDocumento'] ?? '';
-            $fechaNacimiento = $_POST['txtFechaNacimiento'] ?? '';
-            $email = $_POST['txtEmail'] ?? '';
-            $genero = $_POST['txtGenero'] ?? '';
+            $id = $_POST['txtTipoUsuario'] ?? '';
+            $descripcion = $_POST['txtNombre'] ?? '';
+            $nombre = $_POST['txtTipoDocumento'] ?? '';
+            $fechaInicio = $_POST['txtDocumento'] ?? '';
+            $fechaFin = $_POST['txtFechaNacimiento'] ?? '';
+            $requisitos = $_POST['txtEmail'] ?? '';
+            $idInstitucion = $_POST['txtGenero'] ?? '';
             $estado = 'activo'; // Estado por defecto
             $telefono = $_POST['txtTelefono'] ?? '';
             $eps = $_POST['txtEps'] ?? '';
