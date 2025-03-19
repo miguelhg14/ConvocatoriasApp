@@ -1,12 +1,5 @@
 
-    <div class="header">
-        <div class="logo">♣</div>
-        <div class="user-info">
-            <span class="user-icon">⚪</span>
-            <span>Cerrar Sesión</span>
-        </div>
-    </div>
-    
+<div class="header">
     <div class="main-container">
         <div class="form-header">
             Crear Convocatoria
@@ -87,49 +80,5 @@
             <button type="submit" class="submit-button">Publicar Convocatoria</button>
         </form>
     </div>
-    
-    <script>
-        function previewImage(input) {
-            var preview = document.getElementById('imagen-preview');
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                }
-                
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                preview.style.display = 'none';
-            }
-        }
-        
-        // Asegurar que las fechas tengan un orden lógico
-        document.getElementById('fecha-cierre').addEventListener('change', function() {
-            var fechaInicio = document.getElementById('fecha-inicio').value;
-            var fechaCierre = this.value;
-            
-            if (fechaInicio && fechaCierre && fechaCierre < fechaInicio) {
-                alert('La fecha de cierre no puede ser anterior a la fecha de inicio');
-                this.value = '';
-            }
-        });
-        
-        // Mostrar/ocultar campo de ubicación según modalidad
-        document.getElementById('modalidad').addEventListener('change', function() {
-            var modalidad = this.options[this.selectedIndex].text.toLowerCase();
-            var ubicacionField = document.getElementById('ubicacion');
-            
-            if (modalidad.includes('presencial') || modalidad.includes('mixta')) {
-                ubicacionField.required = true;
-                ubicacionField.parentElement.style.display = 'block';
-            } else {
-                ubicacionField.required = false;
-                ubicacionField.value = '';
-                ubicacionField.parentElement.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>
