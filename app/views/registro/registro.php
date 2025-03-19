@@ -1,40 +1,38 @@
 <div class="login-container">
     <h2>Registrarse</h2>
-    <form action="/registro/init" method="post">
-        <?php if (isset($error)): ?>
-            <div class="error">
-                <?php echo $error; ?>
-            </div>
+    <form action="/registro/initRegistro" method="post">
+        <?php if(isset($error)): ?>
+        <div class="error">
+            <?php echo $error; ?>
+        </div>
         <?php endif; ?>
-
+        
         <div class="input-group">
-            <h3 style="text-align: center; margin-top: 0;">Tipo De Usuario</h3>
-            <div class="checkbox-container">
-                <div class="checkbox-group">
-                    <input type="checkbox" id="persona" name="tipoUsuario" value="persona">
-                    <label for="persona">Persona</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="empresa" name="tipoUsuario" value="empresa">
-                    <label for="empresa">Empresa</label>
-                </div>
-            </div>
+            <label for="txtNombre">Nombre</label>
+            <input type="text" name="txtNombre" id="txtNombre" required>
         </div>
 
         <div class="input-group">
-            <label for="txtDocumento">Nº De Documento</label>
-            <input type="text" name="txtDocumento" id="txtDocumento" required>
+            <label for="txtApellido">Apellido</label>
+            <input type="text" name="txtApellido" id="txtApellido" required>
         </div>
-
+        
         <div class="input-group">
-            <label for="txtPassword">Contraseña</label>
-            <input type="password" name="txtPassword" id="txtPassword" required>
+            <label for="txtCorreo">Correo</label>
+            <input type="email" name="txtCorreo" id="txtCorreo" required>
+        </div>
+        
+        <div class="input-group">
+            <label for="txtContrasenia">Contraseña</label>
+            <input type="password" name="txtContrasenia" id="txtContrasenia" required>
         </div>
 
-        <div class="register-link" style="margin-bottom: 15px;">
-            <p>¿Ya Tiene Una Cuenta?</p>
-        </div>
+        <input type="hidden" name="txtRol" value="2">
+        
+        <button type="submit">Registrarse</button>
 
-        <button type="submit">Ingresar</button>
+        <div class="register-link">
+            <p>¿Ya tienes una cuenta? <a href="/login/init">Iniciar Sesión</a></p>
+        </div>
     </form>
 </div>

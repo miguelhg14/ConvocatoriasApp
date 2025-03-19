@@ -8,7 +8,7 @@ require_once '../app/controllers/programaController.php';
 require_once '../app/controllers/loginController.php';
 require_once '../app/controllers/registroController.php';
 require_once '../app/controllers/convocatoriaController.php';
-require_once '../app/controllers/userPerfilController.php';
+require_once '../app/controllers/userController.php';
 
 
 // Acceder a lo que llege a la url

@@ -57,7 +57,7 @@ return [
 
     // Rutas de login
     '/login/init' => ['controller' => 'App\Controller\LoginController', 'action' => 'initLogin'],
-    '/registro/init' => ['controller' => 'App\Controller\RegistroController', 'action' => 'initRegistro'],
+    '/registro/initRegistro' => ['controller' => 'App\Controller\RegistroController', 'action' => 'initRegistro'],
 
     // Otras rutas
     '/convocatoria/init' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'initConvocatoria'],

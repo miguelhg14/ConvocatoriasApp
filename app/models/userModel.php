@@ -35,7 +35,7 @@ class UserModel extends BaseModel
                 $resultSet[] = $row;
             }
             if (count($resultSet) > 0) {
-                $hashed = $resultSet[0]->contraseña;
+                $hashed = $resultSet[0]->contrasenia; // Changed from contraseña to contrasenia
                 if (password_verify($contraseña, $hashed)) {
                     $_SESSION['rol'] = $resultSet[0]->idRol;
                     $_SESSION['nombre'] = $resultSet[0]->nombre;
@@ -47,7 +47,7 @@ class UserModel extends BaseModel
             }
             return false;
         } catch (PDOException $ex) {
-            echo "Error validando login: " . $ex->getMessage();
+            error_log("Error validando login: " . $ex->getMessage());
             return false;
         }
     }
@@ -66,32 +66,33 @@ class UserModel extends BaseModel
         }
     }
 
-public function insertarUsuario($nombre, $apellido, $correo, $contrasenia, $idRol)
-{
-    $fechaCreacion = date("Y-m-d H:i:s"); // Fecha actual
-    $fechaActualizacion = date("Y-m-d H:i:s");
-
-    $sql = "INSERT INTO usuarios (nombre, apellido, correo, fechaCreacion, fechaActualizacion, contrasenia, idRol)
-            VALUES (:nombre, :apellido, :correo, :fechaCreacion, :fechaActualizacion, :contrasenia, :idRol)";
-
-    $stmt = $this->dbConnection->prepare($sql);
+    public function insertarUsuario($nombre, $apellido, $correo, $contrasenia, $idRol)
+    {
+        $fechaCreacion = date("Y-m-d H:i:s");
+        $hashedPassword = password_hash($contrasenia, PASSWORD_DEFAULT); // Hash de la contraseña
     
-    // Vincular los parámetros
-    $stmt->bindParam(':nombre', $nombre);
-    $stmt->bindParam(':apellido', $apellido);
-    $stmt->bindParam(':correo', $correo);
-    $stmt->bindParam(':fechaCreacion', $fechaCreacion);
-    $stmt->bindParam(':fechaActualizacion', $fechaActualizacion);
-    $stmt->bindParam(':contrasenia', $contrasenia); // Ahora coincide con la base de datos
-    $stmt->bindParam(':idRol', $idRol);
-
-    try {
-        return $stmt->execute(); // Ejecutar la consulta
-    } catch (PDOException $e) {
-        echo "Error al insertar usuario: " . $e->getMessage();
-        return false;
+        $sql = "INSERT INTO usuarios (nombre, apellido, correo, fechaCreacion, fechaActualizacion, contrasenia, idRol)
+                VALUES (:nombre, :apellido, :correo, :fechaCreacion, NULL, :contrasenia, :idRol)";
+    
+        try {
+            $stmt = $this->dbConnection->prepare($sql);
+    
+            // Vincular los parámetros
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':apellido', $apellido, PDO::PARAM_STR);
+            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $stmt->bindParam(':fechaCreacion', $fechaCreacion, PDO::PARAM_STR);
+            $stmt->bindParam(':contrasenia', $hashedPassword, PDO::PARAM_STR); // Usar contraseña hasheada
+            $stmt->bindParam(':idRol', $idRol, PDO::PARAM_INT);
+    
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Error al insertar usuario: " . $e->getMessage());
+            
+            return false;
+        }
     }
-}
+    
 
 
     public function editUsuario($id, $nombre, $apellido, $correo, $idRol)
@@ -146,6 +147,23 @@ public function insertarUsuario($nombre, $apellido, $correo, $contrasenia, $idRo
             return $stmt->fetch(PDO::FETCH_OBJ);
         } catch (PDOException $ex) {
             echo "Error al obtener usuario: " . $ex->getMessage();
+            return null;
+        }
+    }
+
+    public function obtenerUsuarioPorCorreo(string $correo): ?array
+    {
+        try {
+            $sql = "SELECT * FROM usuarios WHERE correo = :correo";
+            $stmt = $this->dbConnection->prepare($sql);
+            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ?: null;
+            
+        } catch (PDOException $e) {
+            error_log("Error al buscar usuario por correo: " . $e->getMessage());
             return null;
         }
     }

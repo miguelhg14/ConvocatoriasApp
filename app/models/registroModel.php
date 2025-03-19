@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use DateTime;
 use PDO;
 use PDOException;
 
@@ -13,98 +12,94 @@ class RegistroModel extends BaseModel
     public function __construct(
         private ?int $id = null,
         private ?string $nombre = null,
-        private ?string $tipoDoc = null,
-        private ?string $documento = null,
-        private ?DateTime $fechaNac = null,
-        private ?string $email = null,
-        private ?string $genero = null,
-        private ?string $estado = null,
-        private ?string $telefono = null,
-        private ?string $eps = null,
-        private ?string $tipoSangre = null,
-        private ?float $peso = null,
-        private ?float $estatura = null,
-        private ?string $telefonoEmer = null,
-        private ?string $password = null,
-        private ?string $observaciones = null,
-        private ?int $fkidRol = null,
-        private ?int $fkidGrupo = null,
-        private ?int $fkidCentroForm = null,
-        private ?int $fkidTipoUserGym = null
+        private ?string $apellido = null,
+        private ?string $correo = null,
+        private ?string $contrasenia = null,
+        private ?int $idRol = null
     ) {
         parent::__construct();
-        $this->table = "usuario"; // Nombre de la tabla en la base de datos
+        $this->table = "usuarios";
     }
 
-    /**
-     * Inserta un nuevo usuario en la base de datos.
-     *
-     * @param array $datosUsuario Datos del usuario a insertar.
-     * @return bool Retorna true si la inserción fue exitosa, false en caso contrario.
-     */
-    public function insertarUsuario(array $datosUsuario): bool
-    {
+    public function insertarUsuario(
+        string $nombre,
+        string $apellido,
+        string $correo,
+        string $contrasenia,
+        int $idRol
+    ) {
         try {
-            // Hash de la contraseña
-            $hashedPassword = password_hash($datosUsuario['password'], PASSWORD_DEFAULT);
+            // Debug information
 
-            // Query para insertar un nuevo usuario
+            
+            $fechaCreacion = date('Y-m-d H:i:s');
+            
             $sql = "INSERT INTO {$this->table} (
-                nombre, tipoDocumento, documento, fechaNacimiento, email, genero, estado, telefono, eps, tipoSangre, peso, estatura, telefonoEmergencia, password, observaciones, fkIdRol, fkIdGrupo, fkIdCentroFormacion, fkIdTipoUserGym
+                nombre,
+                apellido,
+                correo,
+                fechaCreacion,
+                fechaActualizacion,
+                contrasenia,
+                idRol
             ) VALUES (
-                :nombre, :tipoDocumento, :documento, :fechaNacimiento, :email, :genero, :estado, :telefono, :eps, :tipoSangre, :peso, :estatura, :telefonoEmergencia, :password, :observaciones, :fkIdRol, :fkIdGrupo, :fkIdCentroFormacion, :fkIdTipoUserGym
+                :nombre,
+                :apellido,
+                :correo,
+                :fechaCreacion,
+                :fechaActualizacion,
+                :contrasenia,
+                :idRol
             )";
 
-            // Prepara la consulta
             $stmt = $this->dbConnection->prepare($sql);
 
-            // Vincula los parámetros
-            $stmt->bindParam(':nombre', $datosUsuario['nombre']);
-            $stmt->bindParam(':tipoDocumento', $datosUsuario['tipoDoc']);
-            $stmt->bindParam(':documento', $datosUsuario['documento']);
-            $stmt->bindParam(':fechaNacimiento', $datosUsuario['fechaNac']?->format('Y-m-d'));
-            $stmt->bindParam(':email', $datosUsuario['email']);
-            $stmt->bindParam(':genero', $datosUsuario['genero']);
-            $stmt->bindParam(':estado', $datosUsuario['estado']);
-            $stmt->bindParam(':telefono', $datosUsuario['telefono']);
-            $stmt->bindParam(':eps', $datosUsuario['eps']);
-            $stmt->bindParam(':tipoSangre', $datosUsuario['tipoSangre']);
-            $stmt->bindParam(':peso', $datosUsuario['peso']);
-            $stmt->bindParam(':estatura', $datosUsuario['estatura']);
-            $stmt->bindParam(':telefonoEmergencia', $datosUsuario['telefonoEmer']);
-            $stmt->bindParam(':password', $hashedPassword);
-            $stmt->bindParam(':observaciones', $datosUsuario['observaciones']);
-            $stmt->bindParam(':fkIdRol', $datosUsuario['fkidRol']);
-            $stmt->bindParam(':fkIdGrupo', $datosUsuario['fkidGrupo']);
-            $stmt->bindParam(':fkIdCentroFormacion', $datosUsuario['fkidCentroForm']);
-            $stmt->bindParam(':fkIdTipoUserGym', $datosUsuario['fkidTipoUserGym']);
+            $hashedPassword = password_hash($contrasenia, PASSWORD_DEFAULT);
+            error_log("Contraseña hasheada (length): " . strlen($hashedPassword));
 
-            // Ejecuta la consulta
-            return $stmt->execute();
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':apellido', $apellido);
+            $stmt->bindParam(':correo', $correo);
+            $stmt->bindParam(':fechaCreacion', $fechaCreacion);
+            $stmt->bindParam(':fechaActualizacion', $fechaActualizacion);
+            $stmt->bindParam(':contrasenia', $hashedPassword);
+            $stmt->bindParam(':idRol', $idRol);
+
+            // Log SQL query
+            error_log("SQL Query: " . $sql);
+            
+            $result = $stmt->execute();
+            
+            if (!$result) {
+                echo "Error SQL: " . implode(", ", $stmt->errorInfo()) . "\n";
+                echo "Estado PDO: " . $stmt->errorCode() . "\n";
+            } else {
+                echo "Inserción exitosa. ID: " . $this->dbConnection->lastInsertId() . "\n";
+            }
+            echo "</pre>";
+            
+            return $result;
         } catch (PDOException $e) {
-            // Manejo de errores
-            error_log("Error al insertar usuario: " . $e->getMessage());
+            echo "<pre>";
+            echo "Excepción PDO en insertarUsuario:\n";
+            echo "Mensaje: " . $e->getMessage() . "\n";
+            echo "Código: " . $e->getCode() . "\n";
+            echo "</pre>";
             return false;
         }
     }
 
-    /**
-     * Obtiene un usuario por su documento.
-     *
-     * @param string $documento El documento del usuario.
-     * @return array|null Retorna los datos del usuario o null si no se encuentra.
-     */
-    public function obtenerUsuarioPorDocumento(string $documento): ?array
+    public function obtenerUsuarioPorCorreo(string $correo): ?array
     {
         try {
-            $sql = "SELECT * FROM {$this->table} WHERE documento = :documento";
+            $sql = "SELECT * FROM {$this->table} WHERE correo = :correo";
             $stmt = $this->dbConnection->prepare($sql);
-            $stmt->bindParam(':documento', $documento);
+            $stmt->bindParam(':correo', $correo);
             $stmt->execute();
 
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (PDOException $e) {
-            error_log("Error al obtener usuario por documento: " . $e->getMessage());
+            error_log("Error al obtener usuario por correo: " . $e->getMessage());
             return null;
         }
     }

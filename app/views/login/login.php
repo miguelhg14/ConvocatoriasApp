@@ -7,8 +7,8 @@
             </div>
         <?php endif; ?>
         <div class="input-group">
-            <label for="txtDocumento">Numero de Documento</label>
-            <input type="txtDocumento" name="txtDocumento" id="txtDocumento" require>
+            <label for="txtDocumento">Correo</label>
+            <input type="txtDocumento" name="txtCorreo" id="txtCorreo" require>
         </div>
         <div class="input-group">
             <label for="txtPassword">Contraseña</label>
@@ -17,6 +17,6 @@
         <button type="submit">Ingrese</button>
     </form>
     <div class="register-link">
-        <p>¿No tiene cuenta aún? <a href="/registro/init">Regístrese aquí</a></p>
+        <p>¿No tiene cuenta aún? <a href="/registro/initRegistro">Regístrese aquí</a></p>
     </div>
 </div>
