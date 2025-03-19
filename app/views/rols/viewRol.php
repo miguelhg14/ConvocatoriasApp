@@ -6,7 +6,7 @@
         foreach ($roles as $key => $value) {
             echo "
                         <div class='record'>
-                            <span>$value->id - $value->nombre</span>
+                            <span>$value->id - $value->tipoRol</span>
                             <div class='buttons'>
                                 <a href='/rol/view/$value->id'>Consultar</a>
                                 <a href='/rol/edit/$value->id'>Editar</a>

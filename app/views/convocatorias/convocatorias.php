@@ -3,7 +3,8 @@
         <div class="logo">♣</div>
         <div class="user-info">
             <span class="user-icon">⚪</span>
-            <span>Cerrar Sesión</span>
+            <span class="user-icon"><?php echo $_SESSION['nombre']?></span>
+            <button action="/logout">Cerrar Sesion</button>
         </div>
     </div>
     

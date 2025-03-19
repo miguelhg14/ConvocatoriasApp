@@ -16,7 +16,7 @@ class RolModel extends BaseModel
         //Se llama al constructor del padre
         parent::__construct();
         //Se especifica la tabla
-        $this->table = "rol";
+        $this->table = "roles";
     }
     public function save()
     {

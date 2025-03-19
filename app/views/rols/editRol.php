@@ -7,7 +7,7 @@
         </div>
         <div class="form-group">
             <label for="txtNombre">Nombre</label>
-            <input type="text" value="<?php echo $infoReal->nombre; ?>" name="txtNombre" id="txtNombre">
+            <input type="text" value="<?php echo $infoReal->tipoRol; ?>" name="txtNombre" id="txtNombre">
         </div>
         <div class="form-group">
             <button type="submit">Editar</button>

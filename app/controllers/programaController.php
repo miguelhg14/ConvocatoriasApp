@@ -2,6 +2,7 @@
 namespace App\Controller;
 use App\Models\ProModel;
 use App\Models\CenModel;
+use Exception;
 
 require_once MAIN_APP_ROUTE."../controllers/baseController.php";
 require_once MAIN_APP_ROUTE."../models/proModel.php";
@@ -12,20 +13,29 @@ class ProgramaController extends BaseController{
     {
         $this->layout = 'dashboard_layout';
     }
-    public function index(){
-        // echo"<br>CONTROLLER> RolController";
-        // echo"<br>ACTION> index";                con Ctrl + K + C
-        // echo "<hr>";
-        //Se crea un objeto del modelo rol
-        $objPro = new ProModel();
-        $programas = $objPro->getAllPrograma();
-        //Llamando a la vista
-        $data=[
-            "programas"=> $programas,
-        ];
-        $this->render("programas/viewPrograma.php", $data);
-        //require_once MAIN_APP_ROUTE."../views/rols/viewRol.php";
-    }
+    public function index()
+        {
+            try {
+                $objPro = new ProModel();
+                $programas = $objPro->getAllPrograma();
+                
+                $data = [
+                    "title" => "Lista de Programas",
+                    "programas" => $programas
+                ];
+                
+                $this->render("programas/viewPrograma.php", $data);
+                
+            } catch (Exception $e) {
+                error_log("Error in ProgramaController->index: " . $e->getMessage());
+                $data = [
+                    "title" => "Lista de Programas",
+                    "programas" => [],
+                    "error" => "Error al cargar los programas"
+                ];
+                $this->render("programas/viewPrograma.php", $data);
+            }
+        }
     public function new()
     {
         $objPro = new CenModel();
@@ -102,19 +112,19 @@ class ProgramaController extends BaseController{
         }
     }
 
-    public function deleteActividad($id)
-    {
-        echo $id;
-        if (isset($id)) {
-            $actividadObjDelete = new ActModel($id);
-            $res = $actividadObjDelete->deleteActividad();
-            print_r($res);
-            if ($res) {
-                header('Location:/actividad/index');
-            }else {
-                header('Location:/actividad/index');
-            }
-        }
-    }
+//     public function deleteActividad($id)
+//     {
+//         echo $id;
+//         if (isset($id)) {
+//             $actividadObjDelete = new ActModel($id);
+//             $res = $actividadObjDelete->deleteActividad();
+//             print_r($res);
+//             if ($res) {
+//                 header('Location:/actividad/index');
+//             }else {
+//                 header('Location:/actividad/index');
+//             }
+//         }
+//     }
+// }
 }
-?>

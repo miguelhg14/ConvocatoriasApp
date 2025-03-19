@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pagina Principal</title>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/style_dashboard.css">
     <link rel="stylesheet" href="/css/styles2.css">
@@ -26,14 +26,14 @@
                 <nav class="menu">
                     <ul>
                         <li><a href="/rol/index"><i class="fas fa-users"></i><span>Roles</span></a></li>
-                        <li><a href=""><i class="fas fa-user-tag"></i><span>Tipo Usuario</span></a></li>
-                        <li><a href="user/index"><i class="fas fa-users-cog"></i><span>Usuarios</span></a></li>
+                        <li><a href="/convocatoria/init"><i class="fas fa-user-tag"></i><span>Convocatorias</span></a></li>
+                        <li><a href="/user/index"><i class="fas fa-users-cog"></i><span>Usuarios</span></a></li>
                         <li><a href="/centro/index"><i class="fas fa-building"></i><span>Centro Formacion</span></a></li>
                         <li><a href="/programa/index"><i class="fas fa-chalkboard-teacher"></i><span>Programa formacion</span></a></li>
-                        <li><a href=""><i class="fas fa-users"></i><span>Grupo</span></a></li>
+                        <!-- <li><a href=""><i class="fas fa-users"></i><span>Grupo</span></a></li> -->
                         <li><a href="/actividad/index"><i class="fas fa-calendar-check"></i><span>Actividades</span></a></li>
-                        <li><a href=""><i class="fas fa-file-alt"></i><span>Registro ingreso</span></a></li>
-                        <li><a href=""><i class="fas fa-chart-line"></i><span>Control Progreso</span></a></li>
+                        <!-- <li><a href=""><i class="fas fa-file-alt"></i><span>Registro ingreso</span></a></li>
+                        <li><a href=""><i class="fas fa-chart-line"></i><span>Control Progreso</span></a></li> -->
                     </ul>
                 </nav>
             </div>
