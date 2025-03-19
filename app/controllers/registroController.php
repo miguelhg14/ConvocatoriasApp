@@ -28,6 +28,7 @@ class RegistroController extends BaseController
             $contraseña = $_POST['txtContraseña'] ?? '';
             $idRol = $_POST['txtRol'] ?? '';
 
+
             if (empty($nombre) || empty($apellido) || empty($correo) || empty($contraseña) || empty($idRol)) {
                 $error = "Todos los campos obligatorios deben ser completados.";
             } else {

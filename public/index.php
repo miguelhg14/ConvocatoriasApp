@@ -3,7 +3,6 @@
 require_once '../app/config/global.php';
 require_once '../app/controllers/homeController.php';
 require_once '../app/controllers/RolController.php';
-require_once '../app/controllers/actividadController.php';
 require_once '../app/controllers/centroController.php';
 require_once '../app/controllers/programaController.php';
 require_once '../app/controllers/loginController.php';
