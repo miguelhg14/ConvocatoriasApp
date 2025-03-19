@@ -75,7 +75,7 @@ class LoginController extends BaseController
         // echo "<hr>";
         //Se crea un objeto del modelo rol
         $objUser = new UserModel();
-        $usuario = $objUser->getAllUsuario();
+        $usuario = $objUser->getAllUsuarios();
         //Llamando a la vista
         $data=[
             "usuario"=> $usuario,

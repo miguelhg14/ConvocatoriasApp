@@ -22,58 +22,26 @@ class RegistroController extends BaseController
         // Verificar si el formulario fue enviado
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Obtener y limpiar los datos del formulario
-            $tipoUsuario = $_POST['txtTipoUsuario'] ?? '';
             $nombre = $_POST['txtNombre'] ?? '';
-            $tipoDocumento = $_POST['txtTipoDocumento'] ?? '';
-            $documento = $_POST['txtDocumento'] ?? '';
-            $fechaNacimiento = $_POST['txtFechaNacimiento'] ?? '';
-            $email = $_POST['txtEmail'] ?? '';
-            $genero = $_POST['txtGenero'] ?? '';
-            $estado = 'activo'; // Estado por defecto
-            $telefono = $_POST['txtTelefono'] ?? '';
-            $eps = $_POST['txtEps'] ?? '';
-            $tipoSangre = $_POST['txtTipoSangre'] ?? '';
-            $peso = $_POST['txtPeso'] ?? '';
-            $estatura = $_POST['txtEstatura'] ?? '';
-            $telefonoEmergencia = $_POST['txtTelefonoEmergencia'] ?? '';
-            $password = $_POST['txtPassword'] ?? '';
-            $observaciones = $_POST['txtObservaciones'] ?? '';
-            $fkIdRol = 2; // Rol por defecto: Cliente
-            $fkIdGrupo = null; // Opcional
-            $fkIdCentroFormacion = null; // Opcional
-            $fkIdTipoUserGym = 1; // Por defecto: Cliente (ID 1 en tipousuariogym)
+            $apellido = $_POST['txtApellido'] ?? '';
+            $correo = $_POST['txtCorreo'] ?? '';
+            $contraseña = $_POST['txtContraseña'] ?? '';
+            $idRol = $_POST['txtRol'] ?? '';
 
-            // Validar los datos
-            $error = '';
-            if (empty($tipoUsuario) || empty($nombre) || empty($tipoDocumento) || empty($documento) || empty($fechaNacimiento) || empty($email) || empty($genero) || empty($telefono) || empty($tipoSangre) || empty($peso) || empty($estatura) || empty($password)) {
+            if (empty($nombre) || empty($apellido) || empty($correo) || empty($contraseña) || empty($idRol)) {
                 $error = "Todos los campos obligatorios deben ser completados.";
             } else {
                 // Hash de la contraseña
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $hashedPassword = password_hash($contraseña, PASSWORD_DEFAULT);
 
                 // Insertar el usuario en la base de datos
                 $userModel = new UserModel();
                 $result = $userModel->insertarUsuario(
-                    $tipoUsuario,
                     $nombre,
-                    $tipoDocumento,
-                    $documento,
-                    $fechaNacimiento,
-                    $email,
-                    $genero,
-                    $estado,
-                    $telefono,
-                    $eps,
-                    $tipoSangre,
-                    $peso,
-                    $estatura,
-                    $telefonoEmergencia,
+                    $apellido,
+                    $correo,
                     $hashedPassword,
-                    $observaciones,
-                    $fkIdRol,
-                    $fkIdGrupo,
-                    $fkIdCentroFormacion,
-                    $fkIdTipoUserGym
+                    $idRol
                 );
 
                 if ($result) {

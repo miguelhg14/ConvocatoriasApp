@@ -326,17 +326,17 @@
         </div>
 
         <div class="form-container">
-            <form action="/user/new"></form>
+            <form action="/registro/init" method="post">
                 <!-- Nombre de la Convocatoria -->
                 <div class="form-group">
                     <label class="form-label">Nombre</label>
-                    <input type="text" class="form-control" placeholder="Ejemplo: Esteban...">
+                    <input type="text" class="form-control" name="txtNombre" placeholder="Ejemplo: Esteban...">
                 </div>
 
                 <!-- Descripción -->
                 <div class="form-group">
                     <label class="form-label">Apellido</label>
-                    <textarea class="form-control" rows="3" placeholder="Ejemplo: Rodas..."></textarea>
+                    <textarea class="form-control" rows="3" name="txtApellido" placeholder="Ejemplo: Rodas..."></textarea>
                 </div>
 
 
@@ -359,25 +359,25 @@
                 <!-- Requisitos -->
                 <div class="form-group">
                     <label class="form-label">Correo</label>
-                    <textarea class="form-control" rows="3" placeholder="Ejemplo: esteban@gmail.com"></textarea>
+                    <textarea class="form-control" rows="3" name="txtCorreo" placeholder="Ejemplo: esteban@gmail.com"></textarea>
                 </div>
 
                 <!-- Beneficios -->
                 <div class="form-group">
                     <label class="form-label">Contraseña</label>
-                    <textarea class="form-control" rows="3" placeholder=""></textarea>
+                    <textarea class="form-control" rows="3" name="txtContraseña"  placeholder=""></textarea>
                 </div>
 
                 <!-- Enlace de Inscripción -->
                 <!-- Categoría -->
                 <div class="form-group">
                     <label class="form-label">Rol</label>
-                    <select class="form-control">
+                    <select class="form-control" name="txtRol">
                         <option value="" disabled selected>Selecciona una categoría</option>
-                        <option value="empleo">Empleo</option>
-                        <option value="capacitacion">Capacitación</option>
-                        <option value="becas">Becas</option>
-                        <option value="certificaciones">Certificaciones</option>
+                        <option value="1">Empleo</option>
+                        <option value="2">Capacitación</option>
+                        <option value="3">Becas</option>
+                        <option value="4">Certificaciones</option>
                     </select>
                 </div>
 

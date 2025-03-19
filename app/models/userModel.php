@@ -2,282 +2,151 @@
 
 namespace App\Models;
 
-use DateTime;
 use PDO;
 use PDOException;
 
 require_once MAIN_APP_ROUTE . "../models/baseModel.php";
 
-
 class UserModel extends BaseModel
 {
-
     public function __construct(
         private ?int $id = null,
         private ?string $nombre = null,
-        private ?string $tipoDoc = null,
-        private ?string $documento = null,
-        private ?DateTime $fechaNac = null,
-        private ?string $email = null,
-        private ?string $genero = null,
-        private ?string $estado = null,
-        private ?string $telefono = null,
-        private ?string $eps = null,
-        private ?string $tipoSangre = null,
-        private ?float $peso = null,
-        private ?float $estatura = null,
-        private ?string $telefonoEmer = null,
-        private ?string $password = null,
-        private ?string $observaciones = null,
-        private ?string $fkidRol = null,
-        private ?string $fkidGrupo = null,
-        private ?string $fkidCentroForm = null,
-        private ?string $fkidTipoUserGym = null,
+        private ?string $apellido = null,
+        private ?string $correo = null,
+        private ?string $fechaCreacion = null,
+        private ?string $fechaActualizacion = null,
+        private ?string $contraseña = null,
+        private ?int $idRol = null
     ) {
         parent::__construct();
-        $this->table = "usuario";
+        $this->table = "usuarios";
     }
 
-    public function validarLogin($email, $password)
+    public function validarLogin($correo, $contraseña)
     {
         try {
-            $sql = "SELECT * FROM usuario WHERE email=:email";
+            $sql = "SELECT * FROM usuarios WHERE correo = :correo";
             $statement = $this->dbConnection->prepare($sql);
-            $statement->bindParam(':email', $email, PDO::PARAM_STR);
+            $statement->bindParam(':correo', $correo, PDO::PARAM_STR);
             $statement->execute();
             $resultSet = [];
             while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
                 $resultSet[] = $row;
             }
-            # Si se encuentra el usuario
             if (count($resultSet) > 0) {
-                // Recuperamos de la BD, la contraseña encriptada
-                $hashed = $resultSet[0]->password;
-                if (password_verify($password, $hashed)) {
-                    // Los datos de usuario y contraseña son correctos
-                    $_SESSION['rol'] = $resultSet[0]->fkIdRol;
+                $hashed = $resultSet[0]->contraseña;
+                if (password_verify($contraseña, $hashed)) {
+                    $_SESSION['rol'] = $resultSet[0]->idRol;
                     $_SESSION['nombre'] = $resultSet[0]->nombre;
                     $_SESSION['id'] = $resultSet[0]->id;
                     $_SESSION['timeout'] = time();
                     session_regenerate_id();
                     return true;
-                } else {
-                    return false;
                 }
             }
+            return false;
         } catch (PDOException $ex) {
-            echo "Error validando login> " . $ex->getMessage();
+            echo "Error validando login: " . $ex->getMessage();
+            return false;
         }
     }
 
-    public function getAllUsuario()
-    {
-        $sql = "SELECT usuario.id, usuario.nombre,usuario.tipoDoc,usuario.documento,usuario.fechaNac,usuario.email,usuario.genero,usuario.estado,usuario.telefono,usuario.eps,usuario.tipoSangre,usuario.peso,usuario.estatura,usuario.telefonoEmer,usuario.password,usuario.obsevaciones,rol.nombre AS rol, grupo.ficha AS grupo, centroformacion.nombre AS centro ,tipousuariogym.nombre AS tipoUsuario
-FROM usuario
-INNER JOIN rol ON usuario.fkidRol = rol.id
-INNER JOIN grupo ON usuario.fkidGrupo = grupo.id
-INNER JOIN centroformacion ON usuario.fkidCentroForm = centroformacion.id
-INNER JOIN tipousuariogym ON usuario.fkidTipoUserGym = tipousuariogym.id";
-
-        $statement = $this->dbConnection->query($sql);
-        $res = $statement->fetchAll(PDO::FETCH_OBJ);
-        return $res;
-    }
-
-    public function save()
+    public function getAllUsuarios()
     {
         try {
-            // 1. Convierte las fechas de DateTime a string
-            $fechaNac = $this->fechaNac->format('Y-m-d');
-
-            // 2. Prepara la consulta SQL
-            $sql = $this->dbConnection->prepare("INSERT INTO $this->table (nombre, tipoDoc, documento, fechaNac, email, genero, estado, telefono, eps, tipoSangre, peso, estatura, telefonoEmer, password, observaciones, fkidRol, fkidGrupo, fkidCentroForm, fkidTipoUserGym)
-        VALUES (:nombre, :tipoDoc, :documento, :fechaNac, :email, :genero, :estado, :telefono, :eps, :tipoSangre, :peso, :estatura, :telefonoEmer, :password, :observaciones, :fkidRol, :fkidGrupo, :fkidCentroForm, :fkidTipoUserGym)");
-
-            // 3. Asocia los parámetros
-            $sql->bindParam(":nombre", $this->nombre, PDO::PARAM_STR);
-            $sql->bindParam(":tipoDoc", $this->tipoDoc, PDO::PARAM_STR);
-            $sql->bindParam(":documento", $this->documento, PDO::PARAM_STR);
-            $sql->bindParam(":fechaNac", $fechaNac, PDO::PARAM_STR);
-            $sql->bindParam(":email", $this->email, PDO::PARAM_STR);
-            $sql->bindParam(":genero", $this->genero, PDO::PARAM_STR);
-            $sql->bindParam(":estado", $this->estado, PDO::PARAM_STR);
-            $sql->bindParam(":telefono", $this->telefono, PDO::PARAM_STR);
-            $sql->bindParam(":eps", $this->eps, PDO::PARAM_STR);
-            $sql->bindParam(":tipoSangre", $this->tipoSangre, PDO::PARAM_STR);
-            $sql->bindParam(":peso", $this->peso, PDO::PARAM_STR);
-            $sql->bindParam(":estatura", $this->estatura, PDO::PARAM_STR);
-            $sql->bindParam(":telefonoEmer", $this->telefonoEmer, PDO::PARAM_STR);
-            $sql->bindParam(":password", $this->password, PDO::PARAM_STR);
-            $sql->bindParam(":observaciones", $this->observaciones, PDO::PARAM_STR);
-            $sql->bindParam(":fkidRol", $this->fkidRol, PDO::PARAM_STR);
-            $sql->bindParam(":fkidGrupo", $this->fkidGrupo, PDO::PARAM_STR);
-            $sql->bindParam(":fkidCentroForm", $this->fkidCentroForm, PDO::PARAM_STR);
-            $sql->bindParam(":fkidTipoUserGym", $this->fkidTipoUserGym, PDO::PARAM_STR);
-
-
-            // 4. Ejecuta la consulta
-            $res = $sql->execute();
-            return $res;
+            $sql = "SELECT u.*, r.nombre as rol_nombre 
+                    FROM usuarios u 
+                    LEFT JOIN roles r ON u.idRol = r.id";
+            $statement = $this->dbConnection->query($sql);
+            return $statement->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOException $ex) {
-            echo "Error en la consulta: " . $ex->getMessage();
+            echo "Error al obtener usuarios: " . $ex->getMessage();
+            return [];
         }
     }
 
-    public function deleteUsuario()
-    {
-        try {
-            $sql = "DELETE FROM $this->table WHERE id = :id";
-            $statement = $this->dbConnection->prepare($sql);
-            $statement->bindParam(":id", $this->id, PDO::PARAM_INT);
-            $res = $statement->execute();
-            return $res;
-        } catch (PDOException $ex) {
-            echo "Error al eliminar el usuario" . $ex->getMessage();
-        }
-    }
+public function insertarUsuario($nombre, $apellido, $correo, $contrasenia, $idRol)
+{
+    $fechaCreacion = date("Y-m-d H:i:s"); // Fecha actual
+    $fechaActualizacion = date("Y-m-d H:i:s");
+
+    $sql = "INSERT INTO usuarios (nombre, apellido, correo, fechaCreacion, fechaActualizacion, contrasenia, idRol)
+            VALUES (:nombre, :apellido, :correo, :fechaCreacion, :fechaActualizacion, :contrasenia, :idRol)";
+
+    $stmt = $this->dbConnection->prepare($sql);
     
-    public function editUsuario()
-    {
-        try {
-            // Convierte las fechas de DateTime a string
-            $fechaNac = $this->fechaNac->format('Y-m-d');
+    // Vincular los parámetros
+    $stmt->bindParam(':nombre', $nombre);
+    $stmt->bindParam(':apellido', $apellido);
+    $stmt->bindParam(':correo', $correo);
+    $stmt->bindParam(':fechaCreacion', $fechaCreacion);
+    $stmt->bindParam(':fechaActualizacion', $fechaActualizacion);
+    $stmt->bindParam(':contrasenia', $contrasenia); // Ahora coincide con la base de datos
+    $stmt->bindParam(':idRol', $idRol);
 
-            // Prepara la consulta SQL
-            $sql = "UPDATE $this->table SET 
-                    nombre = :nombre, 
-                    tipoDoc = :tipoDoc, 
-                    documento = :documento, 
-                    fechaNac = :fechaNac, 
-                    email = :email, 
-                    genero = :genero, 
-                    estado = :estado, 
-                    telefono = :telefono, 
-                    eps = :eps, 
-                    tipoSangre = :tipoSangre, 
-                    peso = :peso, 
-                    estatura = :estatura, 
-                    telefonoEmer = :telefonoEmer, 
-                    password = :password, 
-                    observaciones = :observaciones, 
-                    fkidRol = :fkidRol, 
-                    fkidGrupo = :fkidGrupo, 
-                    fkidCentroForm = :fkidCentroForm, 
-                    fkidTipoUserGym = :fkidTipoUserGym 
-                WHERE id = :id";
-
-
-            $statement = $this->dbConnection->prepare($sql);
-            $statement->bindParam(":id", $this->id, PDO::PARAM_INT);
-            $statement->bindParam(":nombre", $this->nombre, PDO::PARAM_STR);
-            $statement->bindParam(":tipoDoc", $this->tipoDoc, PDO::PARAM_STR);
-            $statement->bindParam(":documento", $this->documento, PDO::PARAM_STR);
-            $statement->bindParam(":fechaNac", $fechaNac, PDO::PARAM_STR);
-            $statement->bindParam(":email", $this->email, PDO::PARAM_STR);
-            $statement->bindParam(":genero", $this->genero, PDO::PARAM_STR);
-            $statement->bindParam(":estado", $this->estado, PDO::PARAM_STR);
-            $statement->bindParam(":telefono", $this->telefono, PDO::PARAM_STR);
-            $statement->bindParam(":eps", $this->eps, PDO::PARAM_STR);
-            $statement->bindParam(":tipoSangre", $this->tipoSangre, PDO::PARAM_STR);
-            $statement->bindParam(":peso", $this->peso, PDO::PARAM_STR);
-            $statement->bindParam(":estatura", $this->estatura, PDO::PARAM_STR);
-            $statement->bindParam(":telefonoEmer", $this->telefonoEmer, PDO::PARAM_STR);
-            $statement->bindParam(":password", $this->password, PDO::PARAM_STR);
-            $statement->bindParam(":observaciones", $this->observaciones, PDO::PARAM_STR);
-            $statement->bindParam(":fkidRol", $this->fkidRol, PDO::PARAM_STR);
-            $statement->bindParam(":fkidGrupo", $this->fkidGrupo, PDO::PARAM_STR);
-            $statement->bindParam(":fkidCentroForm", $this->fkidCentroForm, PDO::PARAM_STR);
-            $statement->bindParam(":fkidTipoUserGym", $this->fkidTipoUserGym, PDO::PARAM_STR);
-
-
-            $resp = $statement->execute();
-            return $resp;
-        } catch (PDOException $ex) {
-            echo "La ficha no pudo ser editada: " . $ex->getMessage();
-        }
+    try {
+        return $stmt->execute(); // Ejecutar la consulta
+    } catch (PDOException $e) {
+        echo "Error al insertar usuario: " . $e->getMessage();
+        return false;
     }
-    public function getOneRol()
+}
+
+
+    public function editUsuario($id, $nombre, $apellido, $correo, $idRol)
     {
         try {
-            $sql = "SELECT * FROM $this->table  WHERE id= :id";
-            $statement = $this->dbConnection->prepare($sql);
-            $statement->bindParam(":id", $this->id, PDO::PARAM_INT);
-            $statement->execute();
-            $res = $statement->fetchAll(PDO::FETCH_OBJ);
-            return $res;
+            $fechaActualizacion = date('Y-m-d H:i:s');
+            
+            $sql = "UPDATE usuarios SET 
+                    nombre = :nombre,
+                    apellido = :apellido,
+                    correo = :correo,
+                    fechaActualizacion = :fechaActualizacion,
+                    idRol = :idRol
+                    WHERE id = :id";
+
+            $stmt = $this->dbConnection->prepare($sql);
+            
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':apellido', $apellido, PDO::PARAM_STR);
+            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $stmt->bindParam(':fechaActualizacion', $fechaActualizacion, PDO::PARAM_STR);
+            $stmt->bindParam(':idRol', $idRol, PDO::PARAM_INT);
+
+            return $stmt->execute();
         } catch (PDOException $ex) {
-            echo "Error al obtener el rol>" . $ex->getMessage();
+            echo "Error al actualizar usuario: " . $ex->getMessage();
+            return false;
         }
     }
 
-    public function getOneGrupo()
+    public function deleteUsuario($id)
     {
         try {
-            $sql = "SELECT * FROM $this->table  WHERE id= :id";
-            $statement = $this->dbConnection->prepare($sql);
-            $statement->bindParam(":id", $this->id, PDO::PARAM_INT);
-            $statement->execute();
-            $res = $statement->fetchAll(PDO::FETCH_OBJ);
-            return $res;
+            $sql = "DELETE FROM usuarios WHERE id = :id";
+            $stmt = $this->dbConnection->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            return $stmt->execute();
         } catch (PDOException $ex) {
-            echo "Error al obtener el grupo>" . $ex->getMessage();
+            echo "Error al eliminar usuario: " . $ex->getMessage();
+            return false;
         }
     }
 
-    public function getOneCentro()
+    public function getOneUsuario($id)
     {
         try {
-            $sql = "SELECT * FROM $this->table  WHERE id= :id";
-            $statement = $this->dbConnection->prepare($sql);
-            $statement->bindParam(":id", $this->id, PDO::PARAM_INT);
-            $statement->execute();
-            $res = $statement->fetchAll(PDO::FETCH_OBJ);
-            return $res;
+            $sql = "SELECT * FROM usuarios WHERE id = :id";
+            $stmt = $this->dbConnection->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         } catch (PDOException $ex) {
-            echo "Error al obtener el centro de formacion>" . $ex->getMessage();
+            echo "Error al obtener usuario: " . $ex->getMessage();
+            return null;
         }
-    }
-
-    public function getOneTipoUser()
-    {
-        try {
-            $sql = "SELECT * FROM $this->table  WHERE id= :id";
-            $statement = $this->dbConnection->prepare($sql);
-            $statement->bindParam(":id", $this->id, PDO::PARAM_INT);
-            $statement->execute();
-            $res = $statement->fetchAll(PDO::FETCH_OBJ);
-            return $res;
-        } catch (PDOException $ex) {
-            echo "Error al obtener el tipo de usuario>" . $ex->getMessage();
-        }
-    }
-
-    public function getOneUsuario()
-    {
-        try {
-            $sql = "SELECT * FROM $this->table  WHERE id = :id";
-            $statement = $this->dbConnection->prepare($sql);
-            $statement->bindParam(":id", $this->id, PDO::PARAM_INT);
-            $statement->execute();
-            $res = $statement->fetchAll(PDO::FETCH_OBJ);
-            return $res;
-        } catch (PDOException $ex) {
-            echo "Error al obtener el usuario>" . $ex->getMessage();
-        }
-    }
-    public function insertarUsuario($email, $password)
-    {
-        // Query para insertar un nuevo usuario
-        $sql = "INSERT INTO usuario (email, password, fkIdRol) VALUES (:email, :password, 2)";
-
-        // Prepara la consulta
-        $stmt = $this->dbConnection->prepare($sql);
-
-        // Vincula los parámetros
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $password);
-
-        // Ejecuta la consulta y retorna el resultado
-        return $stmt->execute();
     }
 }
