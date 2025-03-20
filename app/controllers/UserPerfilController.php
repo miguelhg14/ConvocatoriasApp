@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use Exception;
-use App\Models\UsuarioModel;
+use App\Models\UserPerfilModel;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
-require_once MAIN_APP_ROUTE . "../models/usuarioModel.php";
+require_once MAIN_APP_ROUTE . "../models/UserPerfilModel.php";
 
 class UserPerfilController extends BaseController
 {
@@ -37,11 +37,11 @@ class UserPerfilController extends BaseController
             }
 
             try {
-                $usuarioModel = new UsuarioModel();
+                $usuarioModel = new UserPerfilModel();
 
                 // Si hay un ID de usuario, es una actualización; de lo contrario, es una creación
                 if ($idUsuario) {
-                    $result = $usuarioModel->actualizarUsuario($idUsuario, $nombre, $apellido, $correo, $contrasenia, $idRol);
+                    $result = $usuarioModel->actualizarPerfil($idUsuario, $nombre, $apellido, $correo, $contrasenia, $idRol);
                 } else {
                     $result = $usuarioModel->crearUsuario($nombre, $apellido, $correo, $contrasenia, $idRol);
                 }
@@ -65,8 +65,8 @@ class UserPerfilController extends BaseController
             if ($idUsuario) {
                 // Si hay un ID, es una edición; obtener los datos del usuario
                 try {
-                    $usuarioModel = new UsuarioModel();
-                    $usuario = $usuarioModel->obtenerUsuarioPorId($idUsuario);
+                    $usuarioModel = new UserPerfilModel();
+                    $usuario = $usuarioModel->obtenerPerfilPorId($idUsuario);
 
                     if ($usuario) {
                         $this->render("userPerfil/editarPerfil.php", ["usuario" => $usuario]);
@@ -92,8 +92,8 @@ class UserPerfilController extends BaseController
     public function verPerfil($idUsuario)
     {
         try {
-            $usuarioModel = new UsuarioModel();
-            $usuario = $usuarioModel->obtenerUsuarioPorId($idUsuario);
+            $usuarioModel = new UserPerfilModel();
+            $usuario = $usuarioModel->obtenerPerfilPorId($idUsuario);
 
             if ($usuario) {
                 $this->render("userPerfil/verPerfil.php", ["usuario" => $usuario]);
