@@ -72,8 +72,6 @@ return [
 
 
      // Otras rutas
-     '/menu/init' => ['controller' => 'App\Controller\MenuController', 'action' => 'initMenu'],
-     '/menu/init' => ['controller' => 'App\Controller\MenuController', 'action' => 'initMenu'],
- 
+     '/menu/init' => ['controller' => 'App\Controller\MenuController', 'action' => 'initMenu'], 
 ];
 

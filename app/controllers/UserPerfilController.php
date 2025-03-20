@@ -12,7 +12,7 @@ class PerfilUserController extends BaseController
 {
     public function __construct()
     {
-        $this->layout = 'dashboard_layout'; // Puedes cambiar el layout si es necesario
+        $this->layout = 'userPerfil_layout';        // Puedes cambiar el layout si es necesario
     }
 
     /**

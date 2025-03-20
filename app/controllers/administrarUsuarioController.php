@@ -12,7 +12,7 @@ class AdministrarUsuarioController extends BaseController
 {
     public function __construct()
     {
-        $this->layout = 'dashboard_layout'; // Puedes cambiar el layout si es necesario
+        $this->layout = 'userPerfil_layout'; // Puedes cambiar el layout si es necesario
     }
 
      /**
@@ -21,6 +21,7 @@ class AdministrarUsuarioController extends BaseController
     public function initAdministrarUsuario()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            echo'hola';
             // Obtener y limpiar los datos del formulario
             $idUsuario = !empty($_POST['idUsuario']) ? (int)$_POST['idUsuario'] : null;
             $nombre = trim(string: $_POST['nombre'] ?? '');
