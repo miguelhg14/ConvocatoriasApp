@@ -6,7 +6,7 @@ use Exception;
 use App\Models\UsuarioModel;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
-require_once MAIN_APP_ROUTE . "../models/userModel.php";
+require_once MAIN_APP_ROUTE . "../models/UserPerfilModel.php";
 
 class AdministrarUsuarioController extends BaseController
 {
@@ -23,7 +23,7 @@ class AdministrarUsuarioController extends BaseController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Obtener y limpiar los datos del formulario
             $idUsuario = !empty($_POST['idUsuario']) ? (int)$_POST['idUsuario'] : null;
-            $nombre = trim($_POST['nombre'] ?? '');
+            $nombre = trim(string: $_POST['nombre'] ?? '');
             $apellido = trim($_POST['apellido'] ?? '');
             $correo = trim($_POST['correo'] ?? '');
             $contrasenia = trim($_POST['contrasenia'] ?? '');
@@ -32,7 +32,7 @@ class AdministrarUsuarioController extends BaseController
             // Validar campos obligatorios
             if (empty($nombre) || empty($apellido) || empty($correo) || empty($idRol)) {
                 $error = "Todos los campos obligatorios deben ser completados";
-                $this->render("usuarios/administrarUsuarios.php", ["error" => $error]);
+                $this->render("adminUser/administrarUsuarios.php", ["error" => $error]);
                 return;
             }
 
@@ -94,11 +94,11 @@ class AdministrarUsuarioController extends BaseController
         try {
             $usuarioModel = new UsuarioModel();
             $usuarios = $usuarioModel->obtenerTodosLosUsuarios();
-            $this->render("usuarios/viewUser.php", ["usuarios" => $usuarios]);
+            $this->render("adminUser/viewUser.php", ["usuarios" => $usuarios]);
         } catch (Exception $e) {
             error_log("Error al listar usuarios: " . $e->getMessage());
             $error = "Error al cargar la lista de usuarios";
-            $this->render("usuarios/viewUser.php", ["error" => $error]);
+            $this->render("adminUser/viewUser.php", ["error" => $error]);
         }
     }
 
@@ -118,7 +118,7 @@ class AdministrarUsuarioController extends BaseController
             // Validar campos obligatorios
             if (empty($nombre) || empty($apellido) || empty($correo) || empty($contrasenia) || empty($idRol)) {
                 $error = "Todos los campos obligatorios deben ser completados";
-                $this->render("usuarios/newUser.php", ["error" => $error]);
+                $this->render("adminUser/newUser.php", ["error" => $error]);
                 return;
             }
 
@@ -136,7 +136,7 @@ class AdministrarUsuarioController extends BaseController
             } catch (Exception $e) {
                 error_log("Error al crear usuario: " . $e->getMessage());
                 $error = "Error al procesar la solicitud";
-                $this->render("usuarios/newUser.php", ["error" => $error]);
+                $this->render("adminUser/newUser.php", ["error" => $error]);
             }
         } else {
             // Mostrar el formulario de creación

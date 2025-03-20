@@ -113,7 +113,7 @@
             </div>
 
             <div class="actions">
-                <a href="/userPerfil/editar/<?php echo $usuario['id']; ?>">Editar Perfil</a>
+                <a href="/perfilUser/editar/<?php echo $usuario['id']; ?>">Editar Perfil</a>
             </div>
         </div>
     </div>

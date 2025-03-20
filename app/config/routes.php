@@ -63,10 +63,11 @@ return [
 
     // Otras rutas de funciones de las tablas
     '/convocatoria/init' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'initConvocatoria'],
-    '/userPerfil/init' => ['controller' => 'App\Controller\UserPerfilController', 'action' => 'initUserPerfil'],
+    // '/userPerfil/init' => ['controller' => 'App\Controller\UserPerfilController', 'action' => 'initUserPerfil'],
+   
     // Otras rutas de funciones de las tablas
 '/convocatoria/init' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'initConvocatoria'],
-'/userPerfil/init' => ['controller' => 'App\Controller\UserPerfilController', 'action' => 'initUserPerfil'],
+'/perfilUser/init' => ['controller' => 'App\Controller\PerfilUserController', 'action' => 'initUserPerfil'],
 '/administrarUsuario/init' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'initAdministrarUsuario'],
 
 

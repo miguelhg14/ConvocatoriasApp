@@ -4,8 +4,8 @@ namespace App\Models;
 
 use PDO;
 use PDOException;
-
 require_once MAIN_APP_ROUTE . "../models/baseModel.php";
+
 
 class UserPerfilModel extends BaseModel
 {
@@ -25,7 +25,7 @@ class UserPerfilModel extends BaseModel
                     FROM usuarios 
                     WHERE id = :idUsuario";
             $stmt = $this->dbConnection->prepare($sql);
-            $stmt->bindParam(':idUsuario', $idUsuario);
+            $stmt->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (PDOException $e) {
@@ -61,14 +61,15 @@ class UserPerfilModel extends BaseModel
 
             $stmt = $this->dbConnection->prepare($sql);
 
-            $stmt->bindParam(':nombre', $nombre);
-            $stmt->bindParam(':apellido', $apellido);
-            $stmt->bindParam(':correo', $correo);
-            $stmt->bindParam(':idRol', $idRol);
-            $stmt->bindParam(':idUsuario', $idUsuario);
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':apellido', $apellido, PDO::PARAM_STR);
+            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $stmt->bindParam(':idRol', $idRol, PDO::PARAM_INT);
+            $stmt->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
 
             if ($contrasenia) {
-                $stmt->bindParam(':contrasenia', password_hash($contrasenia, PASSWORD_BCRYPT)); // Encriptar la contraseña
+                $contraseniaHash = password_hash($contrasenia, PASSWORD_BCRYPT);
+                $stmt->bindParam(':contrasenia', $contraseniaHash, PDO::PARAM_STR);
             }
 
             return $stmt->execute();
@@ -87,23 +88,27 @@ class UserPerfilModel extends BaseModel
         string $correo,
         string $contrasenia,
         int $idRol
-    ): bool {
+    ): ?int {
         try {
             $sql = "INSERT INTO usuarios (nombre, apellido, correo, contrasenia, idRol, fechaCreacion, fechaActualizacion)
                     VALUES (:nombre, :apellido, :correo, :contrasenia, :idRol, NOW(), NOW())";
 
             $stmt = $this->dbConnection->prepare($sql);
 
-            $stmt->bindParam(':nombre', $nombre);
-            $stmt->bindParam(':apellido', $apellido);
-            $stmt->bindParam(':correo', $correo);
-            $stmt->bindParam(':contrasenia', password_hash($contrasenia, PASSWORD_BCRYPT));
-            $stmt->bindParam(':idRol', $idRol);
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':apellido', $apellido, PDO::PARAM_STR);
+            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $stmt->bindParam(':contrasenia', password_hash($contrasenia, PASSWORD_BCRYPT), PDO::PARAM_STR);
+            $stmt->bindParam(':idRol', $idRol, PDO::PARAM_INT);
 
-            return $stmt->execute();
+            if ($stmt->execute()) {
+                return $this->dbConnection->lastInsertId(); // Devuelve el ID del usuario creado
+            }
+
+            return null;
         } catch (PDOException $e) {
             error_log("Error al crear usuario: " . $e->getMessage());
-            return false;
+            return null;
         }
     }
 }

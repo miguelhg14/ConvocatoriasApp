@@ -18,7 +18,7 @@
     <div class="profile-content">
         <div class="user-details">
             <h3>Datos del usuario / Empresa</h3>
-            <form action="userPerfil/init" method="post">
+            <form action="perfilUser/init" method="post">
                 <div class="detail-item">
                     <label for="nombre">Nombre:</label>
                     <input type="text" name="nombre" id="nombre" value="" required>

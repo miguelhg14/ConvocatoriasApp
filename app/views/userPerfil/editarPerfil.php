@@ -104,7 +104,7 @@
                 </div>
             <?php endif; ?>
 
-            <form action="/userPerfil/init" method="post">
+            <form action="/perfilUser/init" method="post">
                 <input type="hidden" name="idUsuario" value="<?php echo $usuario['id']; ?>">
 
                 <div class="form-group">
@@ -146,7 +146,7 @@
             </form>
 
             <div class="actions">
-                <a href="/userPerfil/ver/<?php echo $usuario['id']; ?>">Volver al Perfil</a>
+                <a href="/perfilUser/ver/<?php echo $usuario['id']; ?>">Volver al Perfil</a>
             </div>
         </div>
     </div>
