@@ -62,4 +62,11 @@ return [
     // Otras rutas
     '/convocatoria/init' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'initConvocatoria'],
     '/userPerfil/init' => ['controller' => 'App\Controller\UserPerfilController', 'action' => 'initUserPerfil'],
+
+
+     // Otras rutas
+     '/menu/init' => ['controller' => 'App\Controller\MenuController', 'action' => 'initMenu'],
+     '/menu/init' => ['controller' => 'App\Controller\MenuController', 'action' => 'initMenu'],
+ 
 ];
+
