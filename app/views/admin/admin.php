@@ -19,6 +19,7 @@
             <i>🔍</i>
             <input type="text" placeholder="Buscar">
         </div>
+        
         <div class="nav-links">
             <a href="#">Descubrir</a>
             <a href="#">Explorar</a>

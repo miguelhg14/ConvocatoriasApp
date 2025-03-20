@@ -62,10 +62,7 @@ return [
     // Otras rutas
     '/convocatoria/init' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'initConvocatoria'],
     '/convocatoria/edit/(\d+)' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'edit'],
-    '/convocatoria/update/(\d+)' => [
-        'controller' => 'App\Controller\ConvocatoriaController',
-        'action' => 'update'
-    ],
+    '/convocatoria/update/(\d+)' => ['controller' => 'App\Controller\ConvocatoriaController','action' => 'update'],
     '/convocatoria/delete/(\d+)' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'delete'],
     '/convocatoria/lista' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'lista'],
     

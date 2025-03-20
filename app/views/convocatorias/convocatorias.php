@@ -6,6 +6,7 @@
 
         <div class="nav-buttons">
             <a href="/convocatoria/lista" class="nav-btn">Ver todas las convocatorias</a>
+
         </div>
 
         <?php if (isset($error)): ?>
@@ -16,8 +17,8 @@
 
         <form action="/convocatoria/init" method="post" enctype="multipart/form-data" class="convocatoria-form">
             <!-- Debug information -->
-        
-            
+
+
             <div class="form-group">
                 <label for="nombre">Nombre de la Convocatoria</label>
                 <input type="text" id="nombre" name="nombre" required>

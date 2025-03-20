@@ -46,11 +46,12 @@ class LoginController extends BaseController
             
             $userModel = new UserModel();
             if ($userModel->validarLogin($correo, $password)) {
-                header("Location: /rol/index");
+                header("Location: /menu/init");
                 exit();
             } else {
                 $error = "Correo o contraseña incorrectos";
                 $this->render("login/login.php", ["error" => $error]);
+                https://github.com/Bran666/ConvocatoriasApp
                 return;
             }
         }

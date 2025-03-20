@@ -21,28 +21,29 @@
             <form action="userPerfil/init" method="post">
                 <div class="detail-item">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" value="" required>
+                    <input type="text" name="nombre" id="nombre" value="<?php echo $_SESSION['nombre'];?>" required >
                 </div>
                 
-                <div class="detail-item">
+                <!-- <div class="detail-item">
                     <label for="descripcion">Descripción:</label>
                     <textarea name="descripcion" id="descripcion" required></textarea>
+                </div> -->
+                <div class="detail-item">
+                    <label for="telefono">Apellido:</label>
+                    <input type="tel" name="telefono" id="telefono" value="<?php echo $_SESSION['apellido'];?>" required>
                 </div>
+
                 
                 <div class="detail-item">
                     <label for="correo">Correo Electrónico:</label>
-                    <input type="email" name="correo" id="correo" value="" required>
+                    <input type="email" name="correo" id="correo" value="<?php echo $_SESSION['correo'];?>" required>
                 </div>
                 
-                <div class="detail-item">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="tel" name="telefono" id="telefono" value="" required>
-                </div>
                 
-                <div class="detail-item">
+                <!-- <div class="detail-item">
                     <label for="direccion">Dirección:</label>
                     <input type="text" name="direccion" id="direccion" value="" required>
-                </div>
+                </div> -->
                 
                 <button type="submit">Guardar</button>
             </form>

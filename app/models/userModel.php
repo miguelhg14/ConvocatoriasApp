@@ -37,9 +37,13 @@ class UserModel extends BaseModel
             if (count($resultSet) > 0) {
                 $hashed = $resultSet[0]->contrasenia; // Changed from contraseña to contrasenia
                 if (password_verify($contraseña, $hashed)) {
-                    $_SESSION['rol'] = $resultSet[0]->idRol;
-                    $_SESSION['nombre'] = $resultSet[0]->nombre;
                     $_SESSION['id'] = $resultSet[0]->id;
+                    $_SESSION['nombre'] = $resultSet[0]->nombre;
+                    $_SESSION['apellido'] = $resultSet[0]->apellido;
+                    $_SESSION['correo'] = $resultSet[0]->correo;
+                    $_SESSION['telefono'] = $resultSet[0]->telefono;
+                    // $_SESSION['direccion'] = $resultSet[0]->direccion;
+                    $_SESSION['rol'] = $resultSet[0]->idRol;
                     $_SESSION['timeout'] = time();
                     session_regenerate_id();
                     return true;
