@@ -167,4 +167,86 @@ class UserModel extends BaseModel
             return null;
         }
     }
+       // Método para crear un usuario
+       public function crearUsuario($nombre, $apellido, $correo, $contrasenia, $idRol)
+       {
+           $fechaCreacion = date("Y-m-d H:i:s");
+           $hashedPassword = password_hash($contrasenia, PASSWORD_DEFAULT);
+   
+           $sql = "INSERT INTO usuarios (nombre, apellido, correo, fechaCreacion, contrasenia, idRol)
+                   VALUES (:nombre, :apellido, :correo, :fechaCreacion, :contrasenia, :idRol)";
+   
+           try {
+               $stmt = $this->dbConnection->prepare($sql);
+               $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+               $stmt->bindParam(':apellido', $apellido, PDO::PARAM_STR);
+               $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+               $stmt->bindParam(':fechaCreacion', $fechaCreacion, PDO::PARAM_STR);
+               $stmt->bindParam(':contrasenia', $hashedPassword, PDO::PARAM_STR);
+               $stmt->bindParam(':idRol', $idRol, PDO::PARAM_INT);
+   
+               return $stmt->execute();
+           } catch (PDOException $e) {
+               error_log("Error al crear usuario: " . $e->getMessage());
+               return false;
+           }
+       }
+   
+       // Método para obtener todos los roles
+       public function obtenerRoles()
+       {
+           try {
+               $sql = "SELECT * FROM roles";
+               $stmt = $this->dbConnection->query($sql);
+               return $stmt->fetchAll(PDO::FETCH_OBJ);
+           } catch (PDOException $e) {
+               error_log("Error al obtener roles: " . $e->getMessage());
+               return [];
+           }
+       }
+   
+       // Método para obtener todos los intereses
+       public function obtenerIntereses()
+       {
+           try {
+               $sql = "SELECT * FROM intereses";
+               $stmt = $this->dbConnection->query($sql);
+               return $stmt->fetchAll(PDO::FETCH_OBJ);
+           } catch (PDOException $e) {
+               error_log("Error al obtener intereses: " . $e->getMessage());
+               return [];
+           }
+       }
+   
+       // Método para asignar intereses a un usuario
+       public function asignarInteres($idUsuario, $idInteres)
+       {
+           $sql = "INSERT INTO usuariointereses (idUsuario, idInteres) VALUES (:idUsuario, :idInteres)";
+   
+           try {
+               $stmt = $this->dbConnection->prepare($sql);
+               $stmt->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+               $stmt->bindParam(':idInteres', $idInteres, PDO::PARAM_INT);
+   
+               return $stmt->execute();
+           } catch (PDOException $e) {
+               error_log("Error al asignar interés: " . $e->getMessage());
+               return false;
+           }
+       }
+   
+       // Método para obtener un usuario por su ID
+       public function obtenerUsuarioPorId($id)
+       {
+           try {
+               $sql = "SELECT * FROM usuarios WHERE id = :id";
+               $stmt = $this->dbConnection->prepare($sql);
+               $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+               $stmt->execute();
+               return $stmt->fetch(PDO::FETCH_OBJ);
+           } catch (PDOException $e) {
+               error_log("Error al obtener usuario: " . $e->getMessage());
+               return null;
+           }
+       }
 }

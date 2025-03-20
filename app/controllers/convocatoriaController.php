@@ -22,7 +22,7 @@ class ConvocatoriaController extends BaseController
             // Get and trim all form data
             $nombre = trim($_POST['txtNombre'] ?? '');
             $descripcion = trim($_POST['txtDescripcion'] ?? '');
-            $fechaInicio = trim($_POST['txtFechaInicio'] ?? '');
+            $fechaInicio = trim(string: $_POST['txtFechaInicio'] ?? '');
             $fechaFin = trim($_POST['txtFechaFin'] ?? '');
             $requisitos = trim($_POST['txtRequisitos'] ?? '');
             $beneficios = trim($_POST['txtBeneficios'] ?? '');

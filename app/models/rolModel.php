@@ -71,4 +71,46 @@ class RolModel extends BaseModel
             echo "El no pudo ser Eliminado " . $ex->getMessage();
         }
     }
+      // Método para obtener todos los roles
+      public function obtenerRoles()
+      {
+          try {
+              $sql = "SELECT * FROM roles";
+              $stmt = $this->dbConnection->query($sql);
+              return $stmt->fetchAll(PDO::FETCH_OBJ);
+          } catch (PDOException $e) {
+              error_log("Error al obtener roles: " . $e->getMessage());
+              return [];
+          }
+      }
+  
+      // Método para crear un rol
+      public function crearRol($nombre)
+      {
+          $sql = "INSERT INTO roles (nombre) VALUES (:nombre)";
+  
+          try {
+              $stmt = $this->dbConnection->prepare($sql);
+              $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+              return $stmt->execute();
+          } catch (PDOException $e) {
+              error_log("Error al crear rol: " . $e->getMessage());
+              return false;
+          }
+      }
+  
+      // Método para obtener un rol por su ID
+      public function obtenerRolPorId($id)
+      {
+          try {
+              $sql = "SELECT * FROM roles WHERE id = :id";
+              $stmt = $this->dbConnection->prepare($sql);
+              $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+              $stmt->execute();
+              return $stmt->fetch(PDO::FETCH_OBJ);
+          } catch (PDOException $e) {
+              error_log("Error al obtener rol: " . $e->getMessage());
+              return null;
+          }
+      }
 }

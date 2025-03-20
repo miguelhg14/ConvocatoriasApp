@@ -13,6 +13,8 @@ return [
         'controller' => 'App\Controller\HomeController',
         'action' => 'saludar',
     ],
+    
+
 
     // Rutas para Rol
     '/rol/index' => ['controller' => 'App\Controller\RolController', 'action' => 'index'],
@@ -59,9 +61,13 @@ return [
     '/login/init' => ['controller' => 'App\Controller\LoginController', 'action' => 'initLogin'],
     '/registro/initRegistro' => ['controller' => 'App\Controller\RegistroController', 'action' => 'initRegistro'],
 
-    // Otras rutas
+    // Otras rutas de funciones de las tablas
     '/convocatoria/init' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'initConvocatoria'],
     '/userPerfil/init' => ['controller' => 'App\Controller\UserPerfilController', 'action' => 'initUserPerfil'],
+    // Otras rutas de funciones de las tablas
+'/convocatoria/init' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'initConvocatoria'],
+'/userPerfil/init' => ['controller' => 'App\Controller\UserPerfilController', 'action' => 'initUserPerfil'],
+'/administrarUsuario/init' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'initAdministrarUsuario'],
 
 
      // Otras rutas
