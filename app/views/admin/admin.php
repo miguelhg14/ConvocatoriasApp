@@ -139,3 +139,124 @@ tus habilidades con el apoyo del SENA,
     <script src="/js/scripts.js">
 
     </script>
+
+    <div class="container">
+    <h1><?php echo $title ?? 'Convocatorias'; ?></h1>
+    
+    <?php if (isset($error)): ?>
+        <div class="alert alert-danger">
+            <?php echo $error; ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="convocatorias-grid">
+        <?php if (!empty($convocatorias)): ?>
+            <?php foreach ($convocatorias as $convocatoria): ?>
+                <div class="convocatoria-card">
+                    <?php if (!empty($convocatoria->imagen)): ?>
+                        <img src="<?php echo $convocatoria->imagen; ?>" alt="<?php echo htmlspecialchars($convocatoria->nombre); ?>" class="card-image">
+                    <?php endif; ?>
+                    
+                    <div class="card-content">
+                        <h2><?php echo htmlspecialchars($convocatoria->nombre); ?></h2>
+                        <p class="descripcion"><?php echo htmlspecialchars($convocatoria->descripcion); ?></p>
+                        
+                        <div class="card-details">
+                            <p><strong>Modalidad:</strong> <?php echo htmlspecialchars($convocatoria->modalidad); ?></p>
+                            <p><strong>Ubicación:</strong> <?php echo htmlspecialchars($convocatoria->ubicacion); ?></p>
+                            <p><strong>Fecha Inicio:</strong> <?php echo date('d/m/Y', strtotime($convocatoria->fechaInicio)); ?></p>
+                            <p><strong>Fecha Fin:</strong> <?php echo date('d/m/Y', strtotime($convocatoria->fechaFin)); ?></p>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <a href="/convocatoria/detalle/<?php echo $convocatoria->id; ?>" class="btn-ver-mas">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="no-results">No hay convocatorias disponibles en este momento.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
+<style>
+.convocatorias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.convocatoria-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.convocatoria-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-content h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.descripcion {
+    color: #666;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-details {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.card-details p {
+    margin: 5px 0;
+}
+
+.card-actions {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.btn-ver-mas {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.btn-ver-mas:hover {
+    background-color: #0056b3;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+</style>
