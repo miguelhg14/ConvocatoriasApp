@@ -4,13 +4,20 @@
             Crear Convocatoria
         </div>
 
+        <div class="nav-buttons">
+            <a href="/convocatoria/lista" class="nav-btn">Ver todas las convocatorias</a>
+        </div>
+
         <?php if (isset($error)): ?>
-            <div class="error">
+            <div class="error-message">
                 <?php echo $error; ?>
             </div>
         <?php endif; ?>
 
-        <form action="/convocatoria/init" method="post" enctype="multipart/form-data">
+        <form action="/convocatoria/init" method="post" enctype="multipart/form-data" class="convocatoria-form">
+            <!-- Debug information -->
+        
+            
             <div class="form-group">
                 <label for="nombre">Nombre de la Convocatoria</label>
                 <input type="text" id="nombre" name="nombre" required>
@@ -23,15 +30,22 @@
 
             <div class="form-group">
                 <label for="categoria">Categoría</label>
-                <select id="categoria" name="categoria" required>
+                <select id="categoria" name="idInteres" required>
                     <option value="" selected disabled>Seleccione una categoría</option>
+                    <?php if (isset($intereses) && !empty($intereses)): ?>
+                        <?php foreach ($intereses as $interes): ?>
+                            <option value="<?php echo htmlspecialchars($interes->id); ?>">
+                                <?php echo htmlspecialchars($interes->nombre); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </select>
             </div>
 
             <div class="form-group date-inputs">
                 <div class="date-input">
                     <label for="fecha-inicio">Fecha de Inicio</label>
-                    <div style="position: relative;">
+                    <div class="date-wrapper">
                         <input type="date" id="fecha-inicio" name="fecha_inicio" required>
                     </div>
                 </div>
@@ -48,6 +62,9 @@
                 <label for="modalidad">Modalidad</label>
                 <select id="modalidad" name="modalidad" required>
                     <option value="" selected disabled>Seleccione una modalidad</option>
+                    <option value="Virtual">Virtual</option>
+                    <option value="Presencial">Presencial</option>
+                    <option value="Mixta">Mixta</option>
                 </select>
             </div>
 
@@ -67,10 +84,15 @@
             </div>
 
             <div class="form-group">
-                <label for="imagen">Imagen de la convocatoria</label>
+                <label for="enlace">Enlace de Inscripción (Opcional)</label>
+                <input type="url" id="enlace" name="enlace_inscripcion" placeholder="https://ejemplo.com/inscripcion">
+            </div>
+
+            <div class="form-group">
+                <label for="imagen">Imagen de la convocatoria (Opcional)</label>
                 <div class="file-upload">
                     <div class="upload-icon">⇧</div>
-                    <p>Haz clic para subir una imagen</p>
+                    <p>Haz clic para subir una imagen (opcional)</p>
                     <input type="file" id="imagen" name="imagen" accept="image/*" onchange="previewImage(this);">
                     <img id="imagen-preview" src="#" alt="Vista previa de la imagen">
                 </div>

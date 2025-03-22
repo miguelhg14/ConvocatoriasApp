@@ -63,15 +63,50 @@ return [
 
     // Otras rutas de funciones de las tablas
     '/convocatoria/init' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'initConvocatoria'],
-    // '/userPerfil/init' => ['controller' => 'App\Controller\UserPerfilController', 'action' => 'initUserPerfil'],
-   
-    // Otras rutas de funciones de las tablas
-'/convocatoria/init' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'initConvocatoria'],
-'/perfilUser/init' => ['controller' => 'App\Controller\PerfilUserController', 'action' => 'initUserPerfil'],
-'/administrarUsuario/init' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'initAdministrarUsuario'],
+    '/convocatoria/edit/(\d+)' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'edit'],
+    '/convocatoria/update/(\d+)' => [
+        'controller' => 'App\Controller\ConvocatoriaController',
+        'action' => 'update'
+    ],
+    '/convocatoria/delete/(\d+)' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'delete'],
+    '/convocatoria/lista' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'lista'],
+
+
+// Rutas para el controlador PerfilUserController
+'/user/init' => [
+    'controller' => 'App\Controller\PerfilUserController', 
+    'action' => 'initUser'
+],
+'/user/edit/(\d+)' => [
+    'controller' => 'App\Controller\PerfilUserController', 
+    'action' => 'edit'
+],
+'/user/update/(\d+)' => [
+    'controller' => 'App\Controller\PerfilUserController', 
+    'action' => 'update'
+],
+'/user/delete/(\d+)' => [
+    'controller' => 'App\Controller\PerfilUserController', 
+    'action' => 'delete'
+],
+'/user/lista' => [
+    'controller' => 'App\Controller\PerfilUserController', 
+    'action' => 'lista'
+],
+
+// Rutas para la administración de usuarios
+'/administrarUsuario/init' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'initUsuario'],
+'/administrarUsuario/edit/(\d+)' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'edit'],
+'/administrarUsuario/update/(\d+)' => [
+    'controller' => 'App\Controller\AdministrarUsuarioController',
+    'action' => 'update'
+],
+'/administrarUsuario/delete/(\d+)' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'delete'],
+'/administrarUsuario/lista' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'lista'],
 
 
      // Otras rutas
-     '/menu/init' => ['controller' => 'App\Controller\MenuController', 'action' => 'initMenu'], 
-];
+    '/menu/init' => ['controller' => 'App\Controller\MenuController', 'action' => 'initMenu'], 
+
+    ];
 

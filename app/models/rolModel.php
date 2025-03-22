@@ -13,25 +13,22 @@ class RolModel extends BaseModel
         private ?int $id = null,
         private ?string $nombre = null,
     ) {
-        //Se llama al constructor del padre
         parent::__construct();
-        //Se especifica la tabla
         $this->table = "roles";
     }
+
     public function save()
     {
         try {
-            //1. Se prepara la consulta
             $sql = $this->dbConnection->prepare("INSERT INTO $this->table (nombre) VALUES (?)");
-            //2. Se remplasan las variables con bindParam
             $sql->bindParam(1, $this->nombre, PDO::PARAM_STR);
-            //3. Se ejecuta la consulta
             $res = $sql->execute();
             return $res;
         } catch (PDOException $ex) {
             echo "Error en consulta> " . $ex->getMessage();
         }
     }
+
     public function getRol()
     {
         try {
@@ -45,6 +42,7 @@ class RolModel extends BaseModel
             echo "Error al obtener el rol> " . $ex->getMessage();
         }
     }
+
     public function editRol()
     {
         try {
@@ -71,46 +69,47 @@ class RolModel extends BaseModel
             echo "El no pudo ser Eliminado " . $ex->getMessage();
         }
     }
-      // Método para obtener todos los roles
-      public function obtenerRoles()
-      {
-          try {
-              $sql = "SELECT * FROM roles";
-              $stmt = $this->dbConnection->query($sql);
-              return $stmt->fetchAll(PDO::FETCH_OBJ);
-          } catch (PDOException $e) {
-              error_log("Error al obtener roles: " . $e->getMessage());
-              return [];
-          }
-      }
-  
-      // Método para crear un rol
-      public function crearRol($nombre)
-      {
-          $sql = "INSERT INTO roles (nombre) VALUES (:nombre)";
-  
-          try {
-              $stmt = $this->dbConnection->prepare($sql);
-              $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-              return $stmt->execute();
-          } catch (PDOException $e) {
-              error_log("Error al crear rol: " . $e->getMessage());
-              return false;
-          }
-      }
-  
-      // Método para obtener un rol por su ID
-      public function obtenerRolPorId($id)
-      {
-          try {
-              $sql = "SELECT * FROM roles WHERE id = :id";
-              $stmt = $this->dbConnection->prepare($sql);
-              $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-              $stmt->execute();
-              return $stmt->fetch(PDO::FETCH_OBJ);
-          } catch (PDOException $e) {
-              error_log("Error al obtener rol: " . $e->getMessage());
-              return null;
-          }
-      }
+
+    // Método para obtener todos los roles
+    public function obtenerRoles()
+    {
+        try {
+            $sql = "SELECT * FROM roles";
+            $stmt = $this->dbConnection->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_OBJ); // Devuelve un array de objetos
+        } catch (PDOException $e) {
+            error_log("Error al obtener roles: " . $e->getMessage());
+            return []; // Devuelve un array vacío en caso de error
+        }
+    }
+
+    // Método para crear un rol
+    public function crearRol($nombre)
+    {
+        $sql = "INSERT INTO roles (nombre) VALUES (:nombre)";
+
+        try {
+            $stmt = $this->dbConnection->prepare($sql);
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Error al crear rol: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Método para obtener un rol por su ID
+    public function obtenerRolPorId($id)
+    {
+        try {
+            $sql = "SELECT * FROM roles WHERE id = :id";
+            $stmt = $this->dbConnection->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            error_log("Error al obtener rol: " . $e->getMessage());
+            return null;
+        }
+    }
 }

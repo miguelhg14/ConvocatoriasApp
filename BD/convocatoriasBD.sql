@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-03-2025 a las 00:43:17
+-- Tiempo de generación: 22-03-2025 a las 23:44:08
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -90,8 +90,17 @@ CREATE TABLE `registroconvocatoria` (
 
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
-  `tipoRol` tinyint(1) DEFAULT NULL
+  `tipoRol` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `tipoRol`) VALUES
+(1, 'Administrador'),
+(2, 'Usuario'),
+(3, 'Empresa');
 
 -- --------------------------------------------------------
 
@@ -116,11 +125,22 @@ CREATE TABLE `usuarios` (
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
   `correo` varchar(45) NOT NULL,
-  `fechaCreacion` datetime NOT NULL,
-  `fechaActualizacion` datetime DEFAULT NULL,
+  `fechaCreacion` datetime DEFAULT current_timestamp(),
+  `fechaActualizacion` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `contrasenia` varchar(255) NOT NULL,
   `idRol` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `correo`, `fechaCreacion`, `fechaActualizacion`, `contrasenia`, `idRol`) VALUES
+(1, 'Juan', 'Pérez', 'juan.perez@example.com', '2025-03-22 17:24:49', '2025-03-22 17:24:49', '$2y$10$E2Z6z8Q7r8Q7r8Q7r8Q7rO', 1),
+(2, 'María', 'Gómez', 'maria.gomez@example.com', '2025-03-22 17:24:49', '2025-03-22 17:24:49', '$2y$10$E2Z6z8Q7r8Q7r8Q7r8Q7rO', 2),
+(3, 'Carlos', 'López', 'carlos.lopez@example.com', '2025-03-22 17:24:49', '2025-03-22 17:24:49', '$2y$10$E2Z6z8Q7r8Q7r8Q7r8Q7rO', 1),
+(4, 'Ana', 'Martínez', 'ana.martinez@example.com', '2025-03-22 17:24:49', '2025-03-22 17:24:49', '$2y$10$E2Z6z8Q7r8Q7r8Q7r8Q7rO', 3),
+(5, 'Luis', 'Rodríguez', 'luis.rodriguez@example.com', '2025-03-22 17:24:49', '2025-03-22 17:24:49', '$2y$10$E2Z6z8Q7r8Q7r8Q7r8Q7rO', 2);
 
 --
 -- Índices para tablas volcadas
@@ -207,7 +227,7 @@ ALTER TABLE `registroconvocatoria`
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuariointereses`
@@ -219,7 +239,7 @@ ALTER TABLE `usuariointereses`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
