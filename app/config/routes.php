@@ -76,6 +76,8 @@ return [
      // Otras rutas
      '/administrarUsuario/init' => ['controller' => 'App\Controller\AdministrarUsuariosController', 'action' => 'initAdministrarUsuario'], 
 
-    
+    // Otras rutas
+    '/administrarConvocatorias/init' => ['controller' => 'App\Controller\administrarConvocatoriasController', 'action' => 'initadministrarConvocatorias'], 
+
 ];
 
