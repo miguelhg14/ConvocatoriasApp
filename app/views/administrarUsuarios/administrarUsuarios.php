@@ -84,29 +84,42 @@
 <body class="bg-gray-50">
   <!-- Header -->
   <header class="bg-green-400 shadow-sm">
-    <div class="container mx-auto px-4 py-3">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center">
-          <button class="text-white mr-2"><i class="fas fa-arrow-left"></i></button>
-          <h1 class="text-xl font-bold text-white mb-0"> Administración de Perfiles</h1>
-        </div>
-        <div class="dropdown">
-          <button class="btn btn-sm text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false"> <i
-              class="fas fa-ellipsis-vertical"></i></button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li> <a class="dropdown-item" href="#"><i class="fas fa-download me-2"></i> Exportar usuarios</a></li>
-            <li> <a class="dropdown-item" href="#"><i class="fas fa-upload me-2"></i> Importar usuarios</a></li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-          </ul>
-        </div>
+  <div class="container mx-auto px-10 py-10">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <!-- Flecha más grande -->
+        <a href="/menu/init" class="text-white mr-4">
+          <i class="fas fa-arrow-left text-2xl"></i>
+        </a>
+        <!-- Título con nuevo estilo -->
+        <h1 class="text-4xl font-bold text-gray-100 mb-0 ">Administración de Perfiles</h1>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-sm text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-ellipsis-vertical"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li>
+            <a class="dropdown-item" href="#">
+              <i class="fas fa-download me-2"></i> Exportar usuarios
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">
+              <i class="fas fa-upload me-2"></i> Importar usuarios
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+        </ul>
       </div>
     </div>
-  </header>
+  </div>
+</header>
   <!-- Admin info -->
   <div class="bg-green-200 border-b">
-    <div class="container mx-auto px-4 py-3">
+    <div class="container mx-auto px-6 py-3">
       <div class="flex items-center">
         <div class="flex-shrink-0 me-3">
           <div class="bg-white rounded-full p-1 border-2 border-primary">
@@ -204,9 +217,10 @@
                     <button class="btn btn-sm btn-outline-secondary btn-view">
                       <i class="fas fa-eye me-1"></i> Ver
                     </button>
-                    <button class="btn btn-sm btn-outline-secondary btn-edit">
-                      <i class="fas fa-edit me-1"></i> Editar
-                    </button>
+                   <!-- Botón que abre el modal -->
+                <button class="btn btn-sm btn-outline-secondary btn-edit" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                <i class="fas fa-edit me-1"></i> Editar
+                </button>
                     <button class="btn btn-sm btn-outline-secondary btn-reinstate">
                       <i class="fas fa-sync-alt me-1"></i> Reingresar
                     </button>
@@ -216,134 +230,59 @@
             </div>
           </div>
 
-          <div class="card">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <!-- Contenedor de la imagen -->
-                <div class="col-auto">
-                  <div class="bg-white rounded-circle p-1 border-2 border-primary">
-                    <img id="profile-image" src="https://via.placeholder.com/40" alt="Admin"
-                      class="rounded-circle w-10 h-10 cursor-pointer" />
-                  </div>
-                  <input type="file" id="file-input" style="display: none" accept="image/*" />
-                </div>
-          
-                <!-- Contenedor de los datos -->
-                <div class="col-md-7 col-sm-10">
-                  <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-                    <h5 class="card-title mb-0">María López</h5>
-                    <span class="badge rounded-pill status-inactive px-3">Inactivo</span>
-                  </div>
-                  <div class="d-flex flex-wrap text-muted">
-                    <span class="me-3">maria@ejemplo.com</span>
-                    <span class="me-3"><i class="fas fa-shield-alt me-1"></i> Editor</span>
-                    <span><i class="fas fa-clock me-1"></i> Último acceso: Hace 3 días</span>
-                  </div>
-                </div>
-          
-                <!-- Contenedor de los botones -->
-                <div class="col-md-4 mt-3 mt-md-0">
-                  <div class="d-flex flex-wrap justify-content-md-end gap-2">
-                    <button class="btn btn-sm btn-outline-secondary btn-view">
-                      <i class="fas fa-eye me-1"></i> Ver
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary btn-edit">
-                      <i class="fas fa-edit me-1"></i> Editar
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary btn-reinstate">
-                      <i class="fas fa-sync-alt me-1"></i> Reingresar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- User 3 -->
-          <div class="card">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <!-- Contenedor de la imagen -->
-                <div class="col-auto">
-                  <div class="bg-white rounded-circle p-1 border-2 border-primary">
-                    <img id="profile-image" src="https://via.placeholder.com/40" alt="Admin"
-                      class="rounded-circle w-10 h-10 cursor-pointer" />
-                  </div>
-                  <input type="file" id="file-input" style="display: none" accept="image/*" />
-                </div>
-                <!-- Contenedor de los datos -->
-                <div class="col-md-7 col-sm-10">
-                  <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-                    <h5 class="card-title mb-0">María López</h5>
-                    <span class="badge rounded-pill status-suspended px-3">suspendido</span>
-                  </div>
-                  <div class="d-flex flex-wrap text-muted">
-                    <span class="me-3">maria@ejemplo.com</span>
-                    <span class="me-3"><i class="fas fa-shield-alt me-1"></i> Editor</span>
-                    <span><i class="fas fa-clock me-1"></i> Último acceso: Hace 3 días</span>
-                  </div>
-                </div>
-          
-                <!-- Contenedor de los botones -->
-                <div class="col-md-4 mt-3 mt-md-0">
-                  <div class="d-flex flex-wrap justify-content-md-end gap-2">
-                    <button class="btn btn-sm btn-outline-secondary btn-view">
-                      <i class="fas fa-eye me-1"></i> Ver
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary btn-edit">
-                      <i class="fas fa-edit me-1"></i> Editar
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary btn-reinstate">
-                      <i class="fas fa-sync-alt me-1"></i> Reingresar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <!-- Modal para editar un usuario -->
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Encabezado del modal -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarLabel">Editar usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- Cuerpo del modal -->
+      <div class="modal-body">
+        <!-- Formulario dentro del modal -->
+        <form id="newUserForm" action="/administrarUsuario/init" method="post" enctype="multipart/form-data">
+          <!-- Campo Nombre -->
+          <div class="mb-3">
+            <label for="txtNombre" class="form-label">
+              <i class="fas fa-user"></i> Nombre
+            </label>
+            <input type="text" class="form-control" id="txtNombre" name="txtNombre" placeholder="Ingrese su nombre" required />
           </div>
-
-          <div class="card">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <!-- Contenedor de la imagen -->
-                <div class="col-auto">
-                  <div class="bg-white rounded-circle p-1 border-2 border-primary">
-                    <img id="profile-image" src="https://via.placeholder.com/40" alt="Admin"
-                      class="rounded-circle w-10 h-10 cursor-pointer" />
-                  </div>
-                  <input type="file" id="file-input" style="display: none" accept="image/*" />
-                </div>
-          
-                <!-- Contenedor de los datos -->
-                <div class="col-md-7 col-sm-10">
-                  <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-                    <h5 class="card-title mb-0">María López</h5>
-                    <span class="badge rounded-pill status-inactive px-3">Inactivo</span>
-                  </div>
-                  <div class="d-flex flex-wrap text-muted">
-                    <span class="me-3">maria@ejemplo.com</span>
-                    <span class="me-3"><i class="fas fa-shield-alt me-1"></i> Editor</span>
-                    <span><i class="fas fa-clock me-1"></i> Último acceso: Hace 3 días</span>
-                  </div>
-                </div>
-          
-                <!-- Contenedor de los botones -->
-                <div class="col-md-4 mt-3 mt-md-0">
-                  <div class="d-flex flex-wrap justify-content-md-end gap-2">
-                    <button class="btn btn-sm btn-outline-secondary btn-view">
-                      <i class="fas fa-eye me-1"></i> Ver
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary btn-edit">
-                      <i class="fas fa-edit me-1"></i> Editar
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary btn-reinstate">
-                      <i class="fas fa-sync-alt me-1"></i> Reingresar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <!-- Campo Apellido -->
+          <div class="mb-3">
+            <label for="txtApellido" class="form-label">
+              <i class="fas fa-user-tag"></i> Apellido
+            </label>
+            <input type="text" class="form-control" id="txtApellido" name="txtApellido" placeholder="Ingrese su apellido" required />
           </div>
+          <!-- Campo Correo electrónico -->
+          <div class="mb-3">
+            <label for="txtEmail" class="form-label">
+              <i class="fas fa-envelope"></i> Correo electrónico
+            </label>
+            <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Ingrese su correo" required />
+          </div>
+          <!-- Campo Contraseña -->
+          <div class="mb-3">
+            <label for="txtPassword" class="form-label">
+              <i class="fas fa-lock"></i> Contraseña
+            </label>
+            <input type="password" class="form-control" id="txtPassword" name="txtPassword" placeholder="Ingrese su contraseña" required />
+          </div>
+        </form>
+      </div>
+      <!-- Pie del modal -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <!-- Botón para enviar el formulario -->
+        <button type="submit" form="newUserForm" class="btn btn-primary">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
   <!-- Filter Modal -->
