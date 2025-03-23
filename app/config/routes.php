@@ -72,6 +72,10 @@ return [
      // Otras rutas
     '/menu/init' => ['controller' => 'App\Controller\MenuController', 'action' => 'initMenu'], 
 
+
+     // Otras rutas
+     '/administrarUsuario/init' => ['controller' => 'App\Controller\AdministrarUsuariosController', 'action' => 'initAdministrarUsuario'], 
+
     
 ];
 

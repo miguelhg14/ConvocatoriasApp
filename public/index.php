@@ -10,6 +10,7 @@ require_once '../app/controllers/registroController.php';
 require_once '../app/controllers/convocatoriaController.php';
 require_once '../app/controllers/userController.php';
 require_once '../app/controllers/menuController.php';
+require_once '../app/controllers/administrarUsuariosController.php';
 
 
 // Acceder a lo que llege a la url
