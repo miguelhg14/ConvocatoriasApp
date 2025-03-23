@@ -1,32 +1,39 @@
 <!-- Header -->
+<!-- Header -->
 <header class="bg-green-400 shadow-sm">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <button class="text-white mr-2">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <h1 class="text-xl font-bold text-white mb-0">Administración de Convocatorias</h1>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-sm text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-vertical"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-download me-2"></i> Exportar
-                                convocatorias</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-chart-line me-2"></i> Ver
-                                estadísticas</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Configuración</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
-
+  <div class="container mx-auto px-10 py-10">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <!-- Flecha más grande -->
+        <a href="/menu/init" class="text-white mr-4">
+          <i class="fas fa-arrow-left text-2xl"></i>
+        </a>
+        <!-- Título con nuevo estilo -->
+        <h1 class="text-4xl font-bold text-gray-100 mb-0 ">Administración de Convocatorias</h1>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-sm text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-ellipsis-vertical"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li>
+            <a class="dropdown-item" href="#">
+              <i class="fas fa-download me-2"></i> Exportar usuarios
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">
+              <i class="fas fa-upload me-2"></i> Importar usuarios
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
     <!-- Admin info -->
     <div class="bg-green-200 border-b">
         <div class="container mx-auto px-4 py-3">

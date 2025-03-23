@@ -7,6 +7,7 @@
     <a href="/convocatoria/init"><i class="fas fa-chalkboard-teacher"></i><span> Crear Convocatorias</span></a></li>
     <li><a href="/administrarUsuario/init"><i class="fas fa-users"></i><span>administrar Usuario</span></a></li>
     <a href="/userPerfil/init"><i class="fas fa-user-circle"></i> <!-- Ícono de perfil --><span>Perfil Usuario</span></a>
+    <a href="/administrarConvocatorias/init"><i class="fas fa-bullhorn me-2"></i> <!-- Ícono de perfil --><span>Administrar Convocatorias</span></a>
 
     <div class="user-name">Cerrar Sesión</div>
 </div>
