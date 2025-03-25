@@ -1,74 +1,77 @@
-  <div class="max-w-md w-full bg-white rounded-xl shadow-2xl overflow-hidden">
-      <div class="bg-green-400 p-6 text-center">
-          <h2 class="text-3xl font-bold text-white">
-              <i class="fas fa-user-circle mr-2"></i>Inicio de seción
-          </h2>
-      </div>
-      <div class="p-8">
-          <?php if (isset($error)): ?>
-              <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
-                  <?php echo $error; ?>
-              </div>
-          <?php endif; ?>
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <!-- Usamos col-md-6 o col-lg-4 para limitar el tamaño de la columna en diferentes pantallas -->
+        <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-center text-white">
+                    <h2 class="mb-3"><i class="fas fa-user-circle me-2"></i>Inicio de Sesión</h2>
+                    <p class="mb-0">Bienvenido de nuevo! Por favor ingresa tus credenciales</p>
+                </div>
 
-          <form action="/login/init" method="post" class="space-y-6">
-              <div class="space-y-2">
-                  <label for="txtCorreo" class="block text-gray-700 text-lg font-semibold">Correo</label>
-                  <div class="relative">
-                      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <i class="fas fa-envelope text-gray-600"></i>
-                      </div>
-                      <input type="email" name="txtCorreo" id="txtCorreo" placeholder="Ingresa tu Correo" required
-                          class="w-full pl-10 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 text-lg">
-                  </div>
-              </div>
+                <div class="card-body p-4 p-md-5">
+                    <?php if (isset($error)): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?php echo $error; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
 
-              <div class="space-y-2">
-                  <label for="txtPassword" class="block text-gray-700 text-lg font-semibold">Contraseña</label>
-                  <div class="relative">
-                      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <i class="fas fa-lock text-gray-600"></i>
-                      </div>
-                      <input type="password" name="txtPassword" id="txtPassword" placeholder="Ingresa Tu Clave" required
-                          class="w-full pl-10 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-lg">
-                      <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                          <i class="fas fa-eye text-gray-500"></i>
-                      </button>
-                  </div>
-              </div>
+                    <form action="/login/init" method="post" class="needs-validation" novalidate>
+                        <div class="mb-4">
+                            <label for="txtCorreo" class="form-label fw-bold">Correo Electrónico</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <input type="email" class="form-control" id="txtCorreo" name="txtCorreo" placeholder="Ingresa tu Correo" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingresa un correo válido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="txtPassword" class="form-label fw-bold">Contraseña</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="txtPassword" name="txtPassword" placeholder="Ingresa tu Contraseña" required>
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <div class="invalid-feedback">
+                                    Por favor ingresa tu contraseña
+                                </div>
+                            </div>
+                        </div>
 
-              <button type="submit" class="w-full bg-green-400 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition duration-300 transform hover:scale-105">
-                  <i class="fas fa-sign-in-alt mr-2"></i>Ingresar
-              </button>
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-sign-in-alt me-2"></i>Ingresar
+                            </button>
+                        </div>
 
-              <div class="text-center mt-6">
-                  <p class="text-gray-600 text-lg">
-                      ¿No Estas Registrado?
-                      <a href="/registro/initRegistro" class="text-blue-600 hover:text-blue-800 font-medium">
-                          Crear Cuenta <i class="fas fa-arrow-right ml-1"></i>
-                      </a>
-                  </p>
-              </div>
-          </form>
-      </div>
-  </div>
+                        <div class="text-center pt-3">
+                            <p class="mb-0">¿No tienes una cuenta?
+                                <a href="/registro/initRegistro" class="text-success fw-bold text-decoration-none">Regístrate aquí</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-  <script>
-      function togglePassword() {
-          const passwordField = document.getElementById('txtPassword');
-          const eyeIcon = event.currentTarget.querySelector('i');
+<script>
+    function togglePassword() {
+        const passwordField = document.getElementById('txtPassword');
+        const eyeIcon = event.currentTarget.querySelector('i');
 
-          if (passwordField.type === 'password') {
-              passwordField.type = 'text';
-              eyeIcon.classList.remove('fa-eye');
-              eyeIcon.classList.add('fa-eye-slash');
-          } else {
-              passwordField.type = 'password';
-              eyeIcon.classList.remove('fa-eye-slash');
-              eyeIcon.classList.add('fa-eye');
-          }
-      }
-  </script>
-  </body>
-
-  </html>
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordField.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        }
+    }
+</script>
