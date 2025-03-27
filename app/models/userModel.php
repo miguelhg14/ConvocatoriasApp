@@ -12,10 +12,8 @@ class UserModel extends BaseModel
     public function __construct(
         private ?int $id = null,
         private ?string $nombre = null,
-        private ?string $apellido = null,
-        private ?string $correo = null,
-        private ?string $fechaCreacion = null,
-        private ?string $fechaActualizacion = null,
+        private ?string $email = null,
+
         private ?string $contraseña = null,
         private ?int $idRol = null
     ) {
@@ -23,12 +21,12 @@ class UserModel extends BaseModel
         $this->table = "usuarios";
     }
 
-    public function validarLogin($correo, $contraseña)
+    public function validarLogin($email, $contraseña)
     {
         try {
-            $sql = "SELECT * FROM usuarios WHERE correo = :correo";
+            $sql = "SELECT * FROM usuario WHERE email = :email";
             $statement = $this->dbConnection->prepare($sql);
-            $statement->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $statement->bindParam(':email', $email, PDO::PARAM_STR);
             $statement->execute();
             $resultSet = [];
             while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
@@ -39,10 +37,9 @@ class UserModel extends BaseModel
                 if (password_verify($contraseña, $hashed)) {
                     $_SESSION['id'] = $resultSet[0]->id;
                     $_SESSION['nombre'] = $resultSet[0]->nombre;
-                    $_SESSION['apellido'] = $resultSet[0]->apellido;
-                    $_SESSION['correo'] = $resultSet[0]->correo;
+                    $_SESSION['email'] = $resultSet[0]->email;
                     $_SESSION['telefono'] = $resultSet[0]->telefono;
-                    // $_SESSION['direccion'] = $resultSet[0]->direccion;
+                    $_SESSION['estado'] = $resultSet[0]->estado;
                     $_SESSION['rol'] = $resultSet[0]->idRol;
                     $_SESSION['timeout'] = time();
                     session_regenerate_id();
@@ -70,13 +67,13 @@ class UserModel extends BaseModel
         }
     }
 
-    public function insertarUsuario($nombre, $apellido, $correo, $contrasenia, $idRol)
+    public function insertarUsuario($nombre, $apellido, $email, $contrasenia, $idRol)
     {
         $fechaCreacion = date("Y-m-d H:i:s");
         $hashedPassword = password_hash($contrasenia, PASSWORD_DEFAULT); // Hash de la contraseña
     
-        $sql = "INSERT INTO usuarios (nombre, apellido, correo, fechaCreacion, fechaActualizacion, contrasenia, idRol)
-                VALUES (:nombre, :apellido, :correo, :fechaCreacion, NULL, :contrasenia, :idRol)";
+        $sql = "INSERT INTO usuarios (nombre, apellido, email, fechaCreacion, fechaActualizacion, contrasenia, idRol)
+                VALUES (:nombre, :apellido, :email, :fechaCreacion, NULL, :contrasenia, :idRol)";
     
         try {
             $stmt = $this->dbConnection->prepare($sql);
@@ -84,7 +81,7 @@ class UserModel extends BaseModel
             // Vincular los parámetros
             $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
             $stmt->bindParam(':apellido', $apellido, PDO::PARAM_STR);
-            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':fechaCreacion', $fechaCreacion, PDO::PARAM_STR);
             $stmt->bindParam(':contrasenia', $hashedPassword, PDO::PARAM_STR); // Usar contraseña hasheada
             $stmt->bindParam(':idRol', $idRol, PDO::PARAM_INT);
@@ -99,7 +96,7 @@ class UserModel extends BaseModel
     
 
 
-    public function editUsuario($id, $nombre, $apellido, $correo, $idRol)
+    public function editUsuario($id, $nombre, $apellido, $email, $idRol)
     {
         try {
             $fechaActualizacion = date('Y-m-d H:i:s');
@@ -107,7 +104,7 @@ class UserModel extends BaseModel
             $sql = "UPDATE usuarios SET 
                     nombre = :nombre,
                     apellido = :apellido,
-                    correo = :correo,
+                    email = :email,
                     fechaActualizacion = :fechaActualizacion,
                     idRol = :idRol
                     WHERE id = :id";
@@ -117,7 +114,7 @@ class UserModel extends BaseModel
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
             $stmt->bindParam(':apellido', $apellido, PDO::PARAM_STR);
-            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':fechaActualizacion', $fechaActualizacion, PDO::PARAM_STR);
             $stmt->bindParam(':idRol', $idRol, PDO::PARAM_INT);
 
@@ -155,19 +152,19 @@ class UserModel extends BaseModel
         }
     }
 
-    public function obtenerUsuarioPorCorreo(string $correo): ?array
+    public function obtenerUsuarioPoremail(string $email): ?array
     {
         try {
-            $sql = "SELECT * FROM usuarios WHERE correo = :correo";
+            $sql = "SELECT * FROM usuarios WHERE email = :email";
             $stmt = $this->dbConnection->prepare($sql);
-            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->execute();
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result ?: null;
             
         } catch (PDOException $e) {
-            error_log("Error al buscar usuario por correo: " . $e->getMessage());
+            error_log("Error al buscar usuario por email: " . $e->getMessage());
             return null;
         }
     }

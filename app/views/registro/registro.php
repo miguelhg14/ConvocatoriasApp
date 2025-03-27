@@ -13,20 +13,12 @@
                         </div>
                     <?php endif; ?>
 
-                    <form action="/registro/initRegistro" method="post">
+                    <form action="/registro/init" method="post">
                         <div class="mb-3">
                             <label for="txtNombre" class="form-label">Nombre</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 <input type="text" name="txtNombre" id="txtNombre" required class="form-control" placeholder="Ingresa tu nombre">
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="txtApellido" class="form-label">Apellido</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <input type="text" name="txtApellido" id="txtApellido" required class="form-control" placeholder="Ingresa tu Apellido">
                             </div>
                         </div>
 
@@ -37,6 +29,15 @@
                                 <input type="email" name="txtCorreo" id="txtCorreo" required class="form-control" placeholder="Ingresa tu Correo">
                             </div>
                         </div>
+
+                        <!-- <div class="mb-3">
+                            <label for="txtTelefono" class="form-label">Telefono</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" name="txtTelefono" id="txtTelefono" required class="form-control" placeholder="Ingresa tu telefono">
+                            </div>
+                        </div> -->
+
 
                         <div class="mb-3">
                             <label for="txtContrasenia" class="form-label">Contraseña</label>

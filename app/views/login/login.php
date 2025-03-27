@@ -49,7 +49,7 @@
 
                         <div class="text-center pt-3">
                             <p class="mb-0">¿No tienes una cuenta?
-                                <a href="/registro/initRegistro" class="text-success fw-bold text-decoration-none">Regístrate aquí</a>
+                                <a href="/registro/init" class="text-success fw-bold text-decoration-none">Regístrate aquí</a>
                             </p>
                         </div>
                     </form>

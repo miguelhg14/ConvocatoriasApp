@@ -25,13 +25,14 @@ class RegistroController extends BaseController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = trim($_POST['txtNombre'] ?? '');
-            $apellido = trim($_POST['txtApellido'] ?? '');
             $correo = trim($_POST['txtCorreo'] ?? '');
             $contraseña = $_POST['txtContrasenia'] ?? '';
-            $idRol = 2; // Default role for new users
+            $estado = "Activo";
+            $telefono = Null;
+            $idRol = 3; // Default role for new users
 
             $error = '';
-            if (empty($nombre) || empty($apellido) || empty($correo) || empty($contraseña)) {
+            if (empty($nombre) || empty($correo) || empty($contraseña)) {
                 $error = "Todos los campos son obligatorios.";
             } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
                 $error = "El correo electrónico no es válido.";
@@ -43,9 +44,10 @@ class RegistroController extends BaseController
                 } else {
                     $result = $registroModel->insertarUsuario(
                         $nombre,
-                        $apellido,
                         $correo,
                         $contraseña,
+                        $estado,
+                        $telefono,
                         $idRol
                     );
 
