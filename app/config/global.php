@@ -7,7 +7,7 @@ define("MAIN_APP_ROUTE", value: __DIR__ . "/../app/");
 if ($environmet == "local") {
     define("DRIVER", "mysql");
     define("HOST", "localhost");
-    define("DATABASE", "convoca");
+    define("DATABASE", "convocatoriasbd");
     define("USERNAME", "root");
     define("PASSWORD", "");
     define("CHARSET", "uft8mb4");
