@@ -56,6 +56,7 @@
                         <button type="submit" class="btn btn-primary w-100 mt-3">
                             <i class="fas fa-save me-2"></i> Guardar
                         </button>
+                        <a href="/requisitos/init" class="btn btn-success bg-opacity-75"><i class="fas fa-file-contract me-2"></i>Requisitos</a>
                     </form>
                 </div>
             </div>

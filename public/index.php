@@ -12,7 +12,7 @@ require_once '../app/controllers/userController.php';
 require_once '../app/controllers/menuController.php';
 require_once '../app/controllers/administrarUsuariosController.php';
 require_once '../app/controllers/administrarConvocatoriasController.php';
-
+require_once '../app/controllers/requisitosController.php';
 
 // Acceder a lo que llege a la url
 $url = $_SERVER["REQUEST_URI"];

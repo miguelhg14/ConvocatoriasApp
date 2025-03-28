@@ -67,7 +67,7 @@ return [
     '/convocatoria/lista' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'lista'],
     
     '/userPerfil/init' => ['controller' => 'App\Controller\UserPerfilController', 'action' => 'initUserPerfil'],
-
+    '/requisitos/init' => ['controller' => 'App\Controller\requisitosController', 'action' => 'initRequisitos'],
 
      // Otras rutas
     '/menu/init' => ['controller' => 'App\Controller\MenuController', 'action' => 'initMenu'], 

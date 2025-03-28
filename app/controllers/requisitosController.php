@@ -5,17 +5,17 @@ namespace App\Controller;
 use App\Models\UserModel;
 
 require_once MAIN_APP_ROUTE . "../controllers/baseController.php";
-require_once MAIN_APP_ROUTE . "../models/userModel.php";
+require_once MAIN_APP_ROUTE . "../models/requisitosModel.php";
 
-class UserPerfilController extends BaseController
+class requisitosController extends BaseController
 {
     public function __construct()
     {
         // Se define Layout para el controlador específico
-        $this->layout = 'userPerfil_layout';
+        $this->layout = 'requisitos_layout';
     }
 
-    public function initUserPerfil()
+    public function initRequisitos()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['txtEmail'], $_POST['txtPassword'])) {
             // El usuario envió email y contraseña
@@ -27,7 +27,7 @@ class UserPerfilController extends BaseController
                 
                 if ($userModel->validarLogin($email, $password)) {
                     // Login exitoso, redirigir al perfil
-                    header("Location: /userPerfil/init");
+                    header("Location: /requisitos/init");
                     exit();
                 } else {
                     $error = "El usuario y/o contraseña incorrectos";
@@ -38,10 +38,10 @@ class UserPerfilController extends BaseController
             
             // Si hay error, renderizar vista con mensaje
             $data = ["error" => $error];
-            $this->render("/userPerfil/userPerfil.php", $data);
+            $this->render("/requisitos/requisitos.php", $data);
         } else {
             // Renderizar formulario
-            $this->render("/userPerfil/userPerfil.php");
+            $this->render("/requisitos/requisitos.php");
         }
     }
     
