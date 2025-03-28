@@ -1,3 +1,5 @@
+<!--
+
 <div class="header">
     <div class="main-container">
         <div class="form-header">
@@ -101,6 +103,76 @@
                 color: #666;
             }
             </style>
+            <button type="submit" class="submit-button">Actualizar Convocatoria</button>
+        </form>
+    </div>
+</div>
+
+                    -->
+
+                    <div class="header">
+    <div class="main-container">
+        <div class="form-header">
+            Editar Convocatoria
+        </div>
+
+        <form action="/convocatoria/update/<?php echo htmlspecialchars($convocatoria['id']); ?>" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($convocatoria['id']); ?>">
+            
+            <div class="form-group">
+                <label for="nombre">Nombre de la Convocatoria</label>
+                <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($convocatoria['nombre']); ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fechaRevision">Fecha de Revisión</label>
+                <input type="date" id="fechaRevision" name="fechaRevision" 
+                       value="<?php echo htmlspecialchars($convocatoria['fechaRevision'] ?? ''); ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fechaCierre">Fecha de Cierre</label>
+                <input type="date" id="fechaCierre" name="fechaCierre" 
+                       value="<?php echo htmlspecialchars($convocatoria['fechaCierre'] ?? ''); ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" required><?php echo htmlspecialchars($convocatoria['descripcion']); ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="objetivo">Objetivo</label>
+                <textarea id="objetivo" name="objetivo" required><?php echo htmlspecialchars($convocatoria['objetivo'] ?? ''); ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="observaciones">Observaciones</label>
+                <textarea id="observaciones" name="observaciones"><?php echo htmlspecialchars($convocatoria['observaciones'] ?? ''); ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="fkIdEntidad">Entidad</label>
+                <select id="fkIdEntidad" name="fkIdEntidad" required>
+                    <?php foreach ($entidades as $entidad): ?>
+                        <option value="<?php echo $entidad->id; ?>" <?php echo ($entidad->id == $convocatoria['fkIdEntidad']) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($entidad->nombre); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fkIdInvestigador">Investigador Responsable</label>
+                <select id="fkIdInvestigador" name="fkIdInvestigador" required>
+                    <?php foreach ($investigadores as $investigador): ?>
+                        <option value="<?php echo $investigador->id; ?>" <?php echo ($investigador->id == $convocatoria['fkIdInvestigador']) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($investigador->nombre); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <button type="submit" class="submit-button">Actualizar Convocatoria</button>
         </form>
     </div>
