@@ -11,7 +11,6 @@ abstract class BaseModel
     public function __construct()
     {
         // Se genera la coneccion a la base de datos
-        $dbConfig = require_once MAIN_APP_ROUTE . "../config/database.php";
         try {
 
             // $dns = "{$dbConfig['driver']}:host={$dbConfig['host']};dbname={$dbConfig['database']}";
