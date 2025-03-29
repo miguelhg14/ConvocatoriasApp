@@ -17,6 +17,11 @@ class AdministrarConvocatoriasController extends BaseController
         $this->layout = 'administrarConvocatorias_layouts';
         //parent::__construct();
     }
+    public function init() {
+        $convocatoriaModel = new AdministrarConvocatoriasModel();
+        $convocatorias = $convocatoriaModel->getAllConvocatorias();
+        $this->render('administrarConvocatorias/administrarConvocatorias');
+    }
     public function initAdministrarConvocatorias()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -31,7 +36,7 @@ class AdministrarConvocatoriasController extends BaseController
                 return;
             }
             
-            $userModel = new AdministrarConvocatoriasModel();
+            $userModel = new userModel();
             if ($userModel->validarLogin($correo, $password)) {
                 header("Location: /administrarConvocatorias/init");
                 exit();
