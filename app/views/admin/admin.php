@@ -36,7 +36,7 @@
         <a class="nav-link" href="#">Explorar</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/favoritos/init">
             <i class="far fa-bookmark me-1"></i> Favoritos
         </a>
     </li>
