@@ -12,13 +12,14 @@ class RolController extends BaseController
 {
     public function __construct()
     {
-        $this->layout = 'dashboard_layout';
+        $this->layout = 'rol_layout';
     }
+    
     public function index()
     {
         try {
             $objRol = new RolModel();
-            $roles = $objRol->getAll();
+            $roles = $objRol->obtenerRoles();
             
             $data = [
                 'title' => 'Lista roles',
@@ -37,43 +38,49 @@ class RolController extends BaseController
         }
     }
 
-    //Muestra un formulario para el new rol
     public function new()
     {
         $this->render('rols/newRol.php');
     }
 
-    //Guarada los datos del formulario
     public function create()
     {
-        $nombre = $_POST['txtNombre'] ?? null;
-        if ($nombre) {
+        try {
+            $nombre = $_POST['txtNombre'] ?? null;
+            
+            if (empty($nombre)) {
+                error_log("Error en create: nombre está vacío");
+                header('Location:/rol/new');
+                return;
+            }
+    
             $objRol = new RolModel(null, $nombre);
             $resp = $objRol->save();
+            
             if ($resp) {
                 header('Location:/rol/index');
             } else {
-                header('Location:/rol/index');
-            };
+                error_log("Error al guardar el rol: " . print_r($objRol, true));
+                header('Location:/rol/new');
+            }
+        } catch (Exception $e) {
+            error_log("Exception en create: " . $e->getMessage());
+            header('Location:/rol/new');
         }
+        exit();
     }
 
     public function view($id)
     {
-
         $objRol = new RolModel($id);
         $rolInfo = $objRol->getRol();
         $data = [
             "id" => $rolInfo[0]->id,
-            "nombre" => $rolInfo[0]->tipoRol,
+            "nombre" => $rolInfo[0]->nombre,  // Cambiado de tipoRol a nombre
         ];
         $this->render("rols/viewOneRol.php", $data);
-
-        // Crear el objeto rol
-        // Traer la informacion de ese rol desde la base de datos
     }
 
-    // Mostrar lo que se quiere editar 
     public function editRol($id)
     {
         $objRol = new RolModel($id);
@@ -84,7 +91,6 @@ class RolController extends BaseController
         $this->render("rols/editRol.php", $data);
     }
 
-    // Se edita como tal en la BD
     public function updateRol()
     {
         if (isset($_POST["txtId"])) {
@@ -94,7 +100,7 @@ class RolController extends BaseController
             $res = $rolObjEdit->editRol();
             if ($res) {
                 header('Location:/rol/index');
-            }else {
+            } else {
                 header('Location:/rol/index');
             }
         }
@@ -102,14 +108,12 @@ class RolController extends BaseController
 
     public function deleteRol($id)
     {
-        echo $id;
         if (isset($id)) {
             $rolObjDelete = new RolModel($id);
             $res = $rolObjDelete->deleteRol();
-            print_r($res);
             if ($res) {
                 header('Location:/rol/index');
-            }else {
+            } else {
                 header('Location:/rol/index');
             }
         }

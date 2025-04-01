@@ -14,7 +14,7 @@ class RolModel extends BaseModel
         private ?string $nombre = null,
     ) {
         parent::__construct();
-        $this->table = "roles";
+        $this->table = "rol";
     }
 
     public function save()
@@ -74,7 +74,7 @@ class RolModel extends BaseModel
     public function obtenerRoles()
     {
         try {
-            $sql = "SELECT * FROM roles";
+            $sql = "SELECT * FROM rol";
             $stmt = $this->dbConnection->query($sql);
             return $stmt->fetchAll(PDO::FETCH_OBJ); // Devuelve un array de objetos
         } catch (PDOException $e) {
@@ -86,7 +86,7 @@ class RolModel extends BaseModel
     // Método para crear un rol
     public function crearRol($nombre)
     {
-        $sql = "INSERT INTO roles (nombre) VALUES (:nombre)";
+        $sql = "INSERT INTO rol (nombre) VALUES (:nombre)";
 
         try {
             $stmt = $this->dbConnection->prepare($sql);
@@ -102,7 +102,7 @@ class RolModel extends BaseModel
     public function obtenerRolPorId($id)
     {
         try {
-            $sql = "SELECT * FROM roles WHERE id = :id";
+            $sql = "SELECT * FROM rol WHERE id = :id";
             $stmt = $this->dbConnection->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();

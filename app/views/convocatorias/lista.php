@@ -1,63 +1,47 @@
-<!--<div class="header">
-    <div class="main-container">
-        <div class="form-header">
-            Lista de Convocatorias
-        </div>
-
-        <div class="nav-buttons">
-            <a href="/convocatoria/init" class="nav-btn">Crear Nueva Convocatoria</a>
-        </div>
-
-        <?php if (isset($error)): ?>
-            <div class="error">
-                <?php echo $error; ?>
-            </div>
-        <?php endif; ?>
-
-        <div class="convocatorias-list">
-            <?php if (!empty($convocatorias)): ?>
-                <?php foreach ($convocatorias as $convocatoria): ?>
-                    <div class="convocatoria-card">
-                        <h2><?php echo htmlspecialchars($convocatoria->nombre); ?></h2>
-                        <p class="descripcion"><?php echo htmlspecialchars($convocatoria->descripcion); ?></p>
-                        <div class="convocatoria-details">
-                            <p><strong>Modalidad:</strong> <?php echo htmlspecialchars($convocatoria->modalidad); ?></p>
-                            <p><strong>Ubicación:</strong> <?php echo htmlspecialchars($convocatoria->ubicacion); ?></p>
-                            <p><strong>Fecha Inicio:</strong> <?php echo htmlspecialchars($convocatoria->fechaInicio); ?></p>
-                            <p><strong>Fecha Fin:</strong> <?php echo htmlspecialchars($convocatoria->fechaFin); ?></p>
-                        </div>
-                        <div class="action-buttons">
-                            <a href="/convocatoria/edit/<?php echo $convocatoria->id; ?>" class="edit-btn">Editar</a>
-                            <a href="/convocatoria/delete/<?php echo $convocatoria->id; ?>"
-                               class="delete-btn"
-                               onclick="return confirm('¿Estás seguro de que deseas eliminar esta convocatoria?');">
-                                Eliminar
-                            </a>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="no-convocatorias">No hay convocatorias disponibles.</p>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
+<!-- Asegúrate de incluir FontAwesome en el header de tu layout -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    .nav-buttons {
-        margin-bottom: 20px;
-        text-align: right;
+    /* Estilos existentes */
+    .list-group-item {
+        border-radius: 0 !important;
+        border-left: 4px solid transparent;
+        transition: all 0.2s ease;
     }
 
-    .nav-btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #4CAF50;
+    .list-group-item:hover {
+        border-left: 4px solid #0d6efd;
+        background-color: #f8f9fa;
+    }
+
+    .list-group-item.active {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    .list-group-item i {
+        width: 20px;
+    }
+
+    /* Nuevos estilos para header y footer */
+    .custom-header {
+        background: linear-gradient(135deg, #0d6efd 0%, #0099ff 100%);
+        padding: 1rem 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .custom-footer {
+        background: #2c3e50;
         color: white;
-        text-decoration: none;
-        border-radius: 4px;
+        padding: 1.5rem 0;
+        margin-top: 3rem;
     }
 
+    .main-wrapper {
+        min-height: calc(100vh - 200px);
+    }
+
+    /* Estilos para las tarjetas de convocatorias */
     .convocatorias-list {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -87,121 +71,146 @@
     }
 
     .edit-btn {
-        background-color: #4CAF50;
+        background-color: #0d6efd;
     }
 
     .delete-btn {
-        background-color: #f44336;
-    }
-
-    .no-convocatorias {
-        text-align: center;
-        padding: 20px;
-        color: #666;
+        background-color: #dc3545;
     }
 </style>
 
-            -->
-            <div class="header">
-    <div class="main-container">
-        <div class="form-header">
-            Lista de Convocatorias
-        </div>
-
-        <div class="nav-buttons">
-            <a href="/convocatoria/init" class="nav-btn">Crear Nueva Convocatoria</a>
-        </div>
-
-        <?php if (isset($error)): ?>
-            <div class="error">
-                <?php echo $error; ?>
+<!-- Header -->
+<header class="custom-header mb-4">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="text-white mb-0">
+                    <i class="fas fa-layer-group me-2"></i>
+                    Sistema de Convocatorias
+                </h1>
             </div>
-        <?php endif; ?>
+            <div class="col-md-6 text-end">
+                <span class="text-white">
+                    <i class="fas fa-user-circle me-2"></i>
+                    Bienvenido, Usuario
+                </span>
+            </div>
+        </div>
+    </div>
+</header>
 
-        <div class="convocatorias-list">
-            <?php if (!empty($convocatorias)): ?>
-                <?php foreach ($convocatorias as $convocatoria): ?>
-                    <div class="convocatoria-card">
-                        <h2><?php echo htmlspecialchars($convocatoria->nombre); ?></h2>
-                        <p class="descripcion"><?php echo htmlspecialchars($convocatoria->descripcion); ?></p>
-                        <div class="convocatoria-details">
-                            <p><strong>Fecha Revisión:</strong> <?php echo htmlspecialchars($convocatoria->fechaRevision); ?></p>
-                            <p><strong>Fecha Cierre:</strong> <?php echo htmlspecialchars($convocatoria->fechaCierre); ?></p>
-                            <p><strong>Objetivo:</strong> <?php echo htmlspecialchars($convocatoria->objetivo); ?></p>
-                            <p><strong>Entidad:</strong> <?php echo htmlspecialchars($convocatoria->entidad_nombre ?? ''); ?></p>
-                            <p><strong>Investigador:</strong> <?php echo htmlspecialchars($convocatoria->investigador_nombre ?? ''); ?></p>
-                        </div>
-                        <div class="action-buttons">
-                            <a href="/convocatoria/edit/<?php echo $convocatoria->id; ?>" class="edit-btn">Editar</a>
-                            <a href="/convocatoria/delete/<?php echo $convocatoria->id; ?>"
-                               class="delete-btn"
-                               onclick="return confirm('¿Estás seguro de que deseas eliminar esta convocatoria?');">
-                                Eliminar
+<!-- Main Content Wrapper -->
+<div class="main-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Menú Lateral Estático -->
+            <div class="col-md-2">
+                <div class="card position-fixed" style="width: 16%;">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Menú de Gestión</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <a href="/linea/init" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="fas fa-chart-line me-2"></i> Línea
+                            </a>
+                            <a href="/publicoObjetivo/init" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="fas fa-users me-2"></i> Público Objetivo
+                            </a>
+                            <a href="/requisitos/init" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="fas fa-list-check me-2"></i> Requisitos
+                            </a>
+                            <a href="/entidadInstitucion/init" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="fas fa-building me-2"></i> Entidad Institución
+                            </a>
+                            <a href="/rol/index" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="fas fa-user-tag me-2"></i> Rol
+                            </a>
+                            <a href="/requisitosSeleccion/init" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="fas fa-tasks me-2"></i> Requisitos Selección
+                            </a>
+                            <a href="/tipo/init" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="fas fa-tag me-2"></i> Tipo
+                            </a>
+                            <a href="/convocatorias/init" class="list-group-item list-group-item-action active d-flex align-items-center">
+                                <i class="fas fa-bullhorn me-2"></i> Convocatorias
                             </a>
                         </div>
                     </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="no-convocatorias">No hay convocatorias disponibles.</p>
-            <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Contenido Principal -->
+            <div class="col-md-10">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            Lista de Convocatorias
+                            <a href="/convocatoria/init" class="btn btn-light float-end">
+                                <i class="fas fa-plus me-2"></i>Nueva Convocatoria
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <?php if (isset($error)): ?>
+                            <div class="alert alert-danger">
+                                <?php echo $error; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="convocatorias-list">
+                            <?php if (!empty($convocatorias)): ?>
+                                <?php foreach ($convocatorias as $convocatoria): ?>
+                                    <div class="convocatoria-card">
+                                        <h4><?php echo htmlspecialchars($convocatoria->nombre); ?></h4>
+                                        <p class="text-muted"><?php echo htmlspecialchars($convocatoria->descripcion); ?></p>
+                                        <div class="convocatoria-details">
+                                            <p><strong>Fecha Revisión:</strong> <?php echo htmlspecialchars($convocatoria->fechaRevision); ?></p>
+                                            <p><strong>Fecha Cierre:</strong> <?php echo htmlspecialchars($convocatoria->fechaCierre); ?></p>
+                                            <p><strong>Objetivo:</strong> <?php echo htmlspecialchars($convocatoria->objetivo); ?></p>
+                                            <p><strong>Entidad:</strong> <?php echo htmlspecialchars($convocatoria->entidad_nombre ?? ''); ?></p>
+                                            <p><strong>Investigador:</strong> <?php echo htmlspecialchars($convocatoria->investigador_nombre ?? ''); ?></p>
+                                        </div>
+                                        <div class="action-buttons">
+                                            <a href="/convocatoria/edit/<?php echo $convocatoria->id; ?>" class="btn btn-primary">
+                                                <i class="fas fa-edit me-2"></i>Editar
+                                            </a>
+                                            <a href="/convocatoria/delete/<?php echo $convocatoria->id; ?>"
+                                               class="btn btn-danger"
+                                               onclick="return confirm('¿Estás seguro de que deseas eliminar esta convocatoria?');">
+                                                <i class="fas fa-trash me-2"></i>Eliminar
+                                            </a>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div class="alert alert-info">
+                                    No hay convocatorias disponibles.
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<style>
-    .nav-buttons {
-        margin-bottom: 20px;
-        text-align: right;
-    }
-
-    .nav-btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-    }
-
-    .convocatorias-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        padding: 20px 0;
-    }
-
-    .convocatoria-card {
-        background: white;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .action-buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 15px;
-    }
-
-    .edit-btn,
-    .delete-btn {
-        padding: 8px 15px;
-        border-radius: 4px;
-        text-decoration: none;
-        color: white;
-    }
-
-    .edit-btn {
-        background-color: #4CAF50;
-    }
-
-    .delete-btn {
-        background-color: #f44336;
-    }
-
-    .no-convocatorias {
-        text-align: center;
-        padding: 20px;
-        color: #666;
-    }
-</style>
+<!-- Footer -->
+<footer class="custom-footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Sistema de Convocatorias</h5>
+                <p class="mb-0">© 2023 Todos los derechos reservados</p>
+            </div>
+            <div class="col-md-6 text-end">
+                <div class="social-links">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
