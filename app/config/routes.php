@@ -59,54 +59,66 @@ return [
 
     // Rutas de login
     '/login/init' => ['controller' => 'App\Controller\LoginController', 'action' => 'initLogin'],
-    '/registro/initRegistro' => ['controller' => 'App\Controller\RegistroController', 'action' => 'initRegistro'],
+    '/registro/init' => ['controller' => 'App\Controller\RegistroController', 'action' => 'initRegistro'],
 
     // Otras rutas de funciones de las tablas
     '/convocatoria/init' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'initConvocatoria'],
     '/convocatoria/edit/(\d+)' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'edit'],
-    '/convocatoria/update/(\d+)' => [
-        'controller' => 'App\Controller\ConvocatoriaController',
-        'action' => 'update'
-    ],
+    '/convocatoria/update/(\d+)' => ['controller' => 'App\Controller\ConvocatoriaController','action' => 'update'],
     '/convocatoria/delete/(\d+)' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'delete'],
     '/convocatoria/lista' => ['controller' => 'App\Controller\ConvocatoriaController', 'action' => 'lista'],
-
-
-// Rutas para el controlador PerfilUserController
-'/user/init' => [
-    'controller' => 'App\Controller\PerfilUserController', 
-    'action' => 'initUser'
-],
-'/user/edit/(\d+)' => [
-    'controller' => 'App\Controller\PerfilUserController', 
-    'action' => 'edit'
-],
-'/user/update/(\d+)' => [
-    'controller' => 'App\Controller\PerfilUserController', 
-    'action' => 'update'
-],
-'/user/delete/(\d+)' => [
-    'controller' => 'App\Controller\PerfilUserController', 
-    'action' => 'delete'
-],
-'/user/lista' => [
-    'controller' => 'App\Controller\PerfilUserController', 
-    'action' => 'lista'
-],
-
-// Rutas para la administración de usuarios
-'/administrarUsuario/init' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'initUsuario'],
-'/administrarUsuario/edit/(\d+)' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'edit'],
-'/administrarUsuario/update/(\d+)' => [
-    'controller' => 'App\Controller\AdministrarUsuarioController',
-    'action' => 'update'
-],
-'/administrarUsuario/delete/(\d+)' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'delete'],
-'/administrarUsuario/lista' => ['controller' => 'App\Controller\AdministrarUsuarioController', 'action' => 'lista'],
-
+    
+    '/userPerfil/init' => ['controller' => 'App\Controller\UserPerfilController', 'action' => 'initUserPerfil'],
+    '/requisitos/init' => ['controller' => 'App\Controller\requisitosController', 'action' => 'initRequisitos'],
 
      // Otras rutas
     '/menu/init' => ['controller' => 'App\Controller\MenuController', 'action' => 'initMenu'], 
+    '/favoritos/init' => ['controller' => 'App\Controller\FavoritosController', 'action' => 'initFavoritos'], 
 
-    ];
+
+     // Otras rutas
+     '/administrarUsuario/init' => ['controller' => 'App\Controller\AdministrarUsuariosController', 'action' => 'initAdministrarUsuario'], 
+
+    // Otras rutas
+    '/administrarConvocatorias/init' => ['controller' => 'App\Controller\administrarConvocatoriasController', 'action' => 'initadministrarConvocatorias'], 
+
+
+    // Otras rutas
+    '/linea/init' => ['controller' => 'App\Controller\LineaController', 'action' => 'initlinea'],
+    '/linea/new' => ['controller' => 'App\Controller\LineaController', 'action' => 'new'],
+    '/linea/create' => ['controller' => 'App\Controller\LineaController', 'action' => 'create'],
+    '/linea/view/(\d+)' => ['controller' => 'App\Controller\LineaController', 'action' => 'view'],
+    '/linea/edit/(\d+)' => ['controller' => 'App\Controller\LineaController', 'action' => 'editLinea'],
+    '/linea/update/(\d+)' => ['controller' => 'App\Controller\LineaController','action' => 'updateLinea'],
+    '/linea/delete/(\d+)' => ['controller' => 'App\Controller\LineaController', 'action' => 'deleteLinea'],
+
+    // Otras rutas
+    '/entidadInstitucion/init' => ['controller' => 'App\Controller\EntidadInstitucionController', 'action' => 'initEntidadinstitucion'],
+    '/entidadInstitucion/new' => ['controller' => 'App\Controller\EntidadInstitucionController', 'action' => 'new'],
+    '/entidadInstitucion/create' => ['controller' => 'App\Controller\EntidadInstitucionController', 'action' => 'create'],
+    '/entidadInstitucion/view/(\d+)' => ['controller' => 'App\Controller\EntidadInstitucionController', 'action' => 'view'],
+    '/entidadInstitucion/edit/(\d+)' => ['controller' => 'App\Controller\EntidadInstitucionController', 'action' => 'editEntidadinstitucion'],
+    '/entidadInstitucion/update/(\d+)' => ['controller' => 'App\Controller\EntidadInstitucionController','action' => 'updateEntidadinstitucion'],
+    '/entidadInstitucion/delete/(\d+)' => ['controller' => 'App\Controller\EntidadInstitucionController', 'action' => 'deleteEntidadinstitucion'],
+
+    
+    // Rutas para PublicoObjetivo
+    '/publicoObjetivo/init' => ['controller' => 'App\Controller\PublicoObjetivoController', 'action' => 'initPublicoObjetivo'],
+    '/publicoObjetivo/new' => ['controller' => 'App\Controller\PublicoObjetivoController', 'action' => 'new'],
+    '/publicoObjetivo/create' => ['controller' => 'App\Controller\PublicoObjetivoController', 'action' => 'create'],
+    '/publicoObjetivo/view/(\d+)' => ['controller' => 'App\Controller\PublicoObjetivoController', 'action' => 'view'],
+    '/publicoObjetivo/edit/(\d+)' => ['controller' => 'App\Controller\PublicoObjetivoController', 'action' => 'editPublicoObjetivo'],
+    '/publicoObjetivo/update/(\d+)' => ['controller' => 'App\Controller\PublicoObjetivoController', 'action' => 'updatePublicoObjetivo'],
+    '/publicoObjetivo/delete/(\d+)' => ['controller' => 'App\Controller\PublicoObjetivoController', 'action' => 'deletePublicoObjetivo'],
+
+    // Rutas para Requisitos
+    '/requisitos/init' => ['controller' => 'App\Controller\RequisitosController', 'action' => 'initRequisitos'],
+    '/requisitos/new' => ['controller' => 'App\Controller\RequisitosController', 'action' => 'new'],
+    '/requisitos/create' => ['controller' => 'App\Controller\RequisitosController', 'action' => 'create'],
+    '/requisitos/view/(\d+)' => ['controller' => 'App\Controller\RequisitosController', 'action' => 'view'],
+    '/requisitos/edit/(\d+)' => ['controller' => 'App\Controller\RequisitosController', 'action' => 'editRequisitos'],
+    '/requisitos/update/(\d+)' => ['controller' => 'App\Controller\RequisitosController', 'action' => 'updateRequisitos'],
+    '/requisitos/delete/(\d+)' => ['controller' => 'App\Controller\RequisitosController', 'action' => 'deleteRequisitos'],
+
+];
 

@@ -18,55 +18,45 @@ class RegistroModel extends BaseModel
         private ?int $idRol = null
     ) {
         parent::__construct();
-        $this->table = "usuarios";
+        $this->table = "usuario";
     }
 
     public function insertarUsuario(
         string $nombre,
-        string $apellido,
-        string $correo,
+        string $email,
         string $contrasenia,
+        string $estado,
+        ?string $telefono,
         int $idRol
     ) {
         try {
-            // Debug information
-
-            
-            $fechaCreacion = date('Y-m-d H:i:s');
-            
             $sql = "INSERT INTO {$this->table} (
                 nombre,
-                apellido,
-                correo,
-                fechaCreacion,
-                fechaActualizacion,
+                email,
                 contrasenia,
+                telefono,
+                estado,
                 idRol
             ) VALUES (
                 :nombre,
-                :apellido,
-                :correo,
-                :fechaCreacion,
-                :fechaActualizacion,
+                :email,
                 :contrasenia,
+                :telefono,
+                :estado,
                 :idRol
             )";
 
             $stmt = $this->dbConnection->prepare($sql);
 
             $hashedPassword = password_hash($contrasenia, PASSWORD_DEFAULT);
-            error_log("Contraseña hasheada (length): " . strlen($hashedPassword));
-
             $stmt->bindParam(':nombre', $nombre);
-            $stmt->bindParam(':apellido', $apellido);
-            $stmt->bindParam(':correo', $correo);
-            $stmt->bindParam(':fechaCreacion', $fechaCreacion);
-            $stmt->bindParam(':fechaActualizacion', $fechaActualizacion);
+            $stmt->bindParam(':email', $email);
             $stmt->bindParam(':contrasenia', $hashedPassword);
+            $stmt->bindParam(':telefono', $telefono);
+            $stmt->bindParam(':estado', $estado);
             $stmt->bindParam(':idRol', $idRol);
 
             // Log SQL query
-            error_log("SQL Query: " . $sql);
             
             $result = $stmt->execute();
             

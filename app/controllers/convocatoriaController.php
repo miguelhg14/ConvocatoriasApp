@@ -27,26 +27,25 @@ class ConvocatoriaController extends BaseController
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Get and trim all form data
                 $nombre = trim($_POST['nombre'] ?? '');
+                $fechaRevision = trim($_POST['fechaRevision'] ?? '');
+                $fechaCierre = trim($_POST['fechaCierre'] ?? '');
                 $descripcion = trim($_POST['descripcion'] ?? '');
-                $fechaInicio = trim($_POST['fecha_inicio'] ?? '');
-                $fechaFin = trim($_POST['fecha_cierre'] ?? '');
-                $requisitos = trim($_POST['requisitos'] ?? '');
-                $beneficios = trim($_POST['beneficios'] ?? '');
-                $modalidad = trim($_POST['modalidad'] ?? '');
-                $ubicacion = trim($_POST['ubicacion'] ?? '');
-                $enlaceInscripcion = trim($_POST['enlace_inscripcion'] ?? '');
-                $imagen = null;
-                if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] !== UPLOAD_ERR_NO_FILE) {
-                    $imagen = $_FILES['imagen']['name'];
-                }
-                $idInstitucion = null;
-                $idInteres = !empty($_POST['idInteres']) ? (int)$_POST['idInteres'] : null;
+                $objetivo = trim($_POST['objetivo'] ?? '');
+                $observaciones = trim($_POST['observaciones'] ?? '');
+                $fkIdEntidad = 1;
+                $idUsuario = 1;
+                $fkIdInvestigador = 1;
+                // $imagen = null;
+                // if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] !== UPLOAD_ERR_NO_FILE) {
+                //     $imagen = $_FILES['imagen']['name'];
+                // }
+
     
                 // Validate required fields
                 if (
-                    empty($nombre) || empty($descripcion) || empty($fechaInicio) ||
-                    empty($fechaFin) || empty($requisitos) || empty($beneficios) ||
-                    empty($modalidad)
+                    empty($nombre) || empty($descripcion) || empty($fechaRevision) ||
+                    empty($fechaCierre) || empty($objetivo) || empty($observaciones) ||
+                    empty($fkIdEntidad)
                 ) {
                     $error = "Los campos obligatorios no pueden estar vacíos";
                     $this->render("convocatorias/convocatorias.php", [
@@ -61,16 +60,13 @@ class ConvocatoriaController extends BaseController
                     $result = $convocatoria->crearConvocatoria(
                         $nombre,
                         $descripcion,
-                        $fechaInicio,
-                        $fechaFin,
-                        $requisitos,
-                        $beneficios,
-                        $modalidad,
-                        $ubicacion,
-                        $enlaceInscripcion,
-                        $imagen,
-                        $idInstitucion,
-                        $idInteres
+                        $fechaRevision,
+                        $fechaCierre,
+                        $objetivo,
+                        $observaciones,
+                        $fkIdEntidad,
+                        $idUsuario,
+                        $fkIdInvestigador,
                     );
     
                     if ($result) {
@@ -137,12 +133,12 @@ class ConvocatoriaController extends BaseController
                 $data = [
                     'nombre' => trim($_POST['nombre'] ?? ''),
                     'descripcion' => trim($_POST['descripcion'] ?? ''),
-                    'fechaInicio' => trim($_POST['fecha_inicio'] ?? ''),
+                    'fechaRevision' => trim($_POST['fecha_inicio'] ?? ''),
                     'fechaFin' => trim($_POST['fecha_fin'] ?? ''),
-                    'requisitos' => trim($_POST['requisitos'] ?? ''),
-                    'beneficios' => trim($_POST['beneficios'] ?? ''),
-                    'modalidad' => trim($_POST['modalidad'] ?? ''),
-                    'ubicacion' => trim($_POST['ubicacion'] ?? ''),
+                    'objetivo' => trim($_POST['objetivo'] ?? ''),
+                    'observaciones' => trim($_POST['observaciones'] ?? ''),
+                    'fkIdEntidad' => trim($_POST['fkIdEntidad'] ?? ''),
+                    'fkIdInvestigador' => trim($_POST['fkIdInvestigador'] ?? ''),
                     'enlaceInscripcion' => trim($_POST['enlace_inscripcion'] ?? ''),
                     'idInteres' => !empty($_POST['idInteres']) ? (int)$_POST['idInteres'] : null,
                     'idInstitucion' => 1 // Temporary default value
@@ -150,8 +146,8 @@ class ConvocatoriaController extends BaseController
 
                 // Validate required fields based on database schema
                 if (empty($data['nombre']) || empty($data['descripcion']) || 
-                    empty($data['fechaInicio']) || empty($data['fechaFin']) || 
-                    empty($data['requisitos']) || empty($data['modalidad']) || 
+                    empty($data['fechaRevision']) || empty($data['fechaFin']) || 
+                    empty($data['objetivo']) || empty($data['fkIdEntidad']) || 
                     empty($data['idInteres'])) {
                     throw new Exception("Faltan campos requeridos");
                 }
@@ -168,12 +164,12 @@ class ConvocatoriaController extends BaseController
                     $id,
                     $data['nombre'],
                     $data['descripcion'],
-                    $data['fechaInicio'],
+                    $data['fechaRevision'],
                     $data['fechaFin'],
-                    $data['requisitos'],
-                    $data['beneficios'],
-                    $data['modalidad'],
-                    $data['ubicacion'],
+                    $data['objetivo'],
+                    $data['observaciones'],
+                    $data['fkIdEntidad'],
+                    $data['fkIdInvestigador'],
                     $data['enlaceInscripcion'],
                     $imagen,
                     $data['idInteres']

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-03-2025 a las 23:44:08
+-- Tiempo de generación: 30-03-2025 a las 23:41:43
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -18,8 +18,33 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `convoca`
+-- Base de datos: `convocatoriasbd`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `chequeo`
+--
+
+CREATE TABLE `chequeo` (
+  `id` int(11) NOT NULL,
+  `chequeo` tinyint(4) NOT NULL,
+  `IdEmpresa` int(11) NOT NULL,
+  `IdRequisito` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ciudades`
+--
+
+CREATE TABLE `ciudades` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `IdDepartamento` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -29,68 +54,162 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `convocatorias` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `descripcion` varchar(500) NOT NULL,
-  `fechaInicio` date NOT NULL,
-  `fechaFin` date NOT NULL,
-  `requisitos` varchar(500) NOT NULL,
-  `beneficios` varchar(255) DEFAULT NULL,
-  `modalidad` varchar(50) NOT NULL,
-  `ubicacion` varchar(100) DEFAULT NULL,
-  `enlaceInscripcion` varchar(255) DEFAULT NULL,
-  `imagen` varchar(255) DEFAULT NULL,
-  `idInstitucion` int(11) NOT NULL,
-  `idInteres` int(11) NOT NULL
+  `nombre` varchar(45) NOT NULL,
+  `fechaRevision` datetime NOT NULL,
+  `fechaCierre` date DEFAULT NULL,
+  `descripcion` varchar(200) NOT NULL,
+  `objetivo` varchar(200) NOT NULL,
+  `observaciones` varchar(200) DEFAULT NULL,
+  `fkIdEntidad` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `fkIdInvestigador` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `instituciones`
+-- Estructura de tabla para la tabla `convocatorias_publicoobjetivo`
 --
 
-CREATE TABLE `instituciones` (
+CREATE TABLE `convocatorias_publicoobjetivo` (
+  `convocatorias_id` int(11) NOT NULL,
+  `publicoObjetivo_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `departamento`
+--
+
+CREATE TABLE `departamento` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `empresa`
+--
+
+CREATE TABLE `empresa` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `telefono` varchar(45) NOT NULL,
-  `direccion` varchar(100) DEFAULT NULL,
-  `correo` varchar(50) DEFAULT NULL,
-  `tipoInstitucion` varchar(50) NOT NULL
+  `nit` varchar(30) DEFAULT NULL,
+  `razonSocial` varchar(45) DEFAULT NULL,
+  `direccion` varchar(45) DEFAULT NULL,
+  `telefono` varchar(45) DEFAULT NULL,
+  `paginaWeb` varchar(100) DEFAULT NULL,
+  `numEmpleados` int(11) DEFAULT NULL,
+  `sectorEconomico` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  `tiempoExistencia` int(11) DEFAULT NULL,
+  `documentoLegal` varchar(45) DEFAULT NULL,
+  `nombreLegal` varchar(45) DEFAULT NULL,
+  `apelidoLegal` varchar(45) DEFAULT NULL,
+  `telefonoFijo` varchar(45) DEFAULT NULL,
+  `celularLegal` varchar(45) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `cargoLegal` varchar(45) DEFAULT NULL,
+  `fkIdCiudad` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `intereses`
+-- Estructura de tabla para la tabla `entidad_institucion`
 --
 
-CREATE TABLE `intereses` (
+CREATE TABLE `entidad_institucion` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(70) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `entidad_institucion`
+--
+
+INSERT INTO `entidad_institucion` (`id`, `nombre`) VALUES
+(1, 'ramon');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `linea`
+--
+
+CREATE TABLE `linea` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL
+  `descripcion` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `linea`
+--
+
+INSERT INTO `linea` (`id`, `nombre`, `descripcion`) VALUES
+(2, 'Alicate', '21\r\n');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lineas_convocatorias`
+--
+
+CREATE TABLE `lineas_convocatorias` (
+  `linea_id` int(11) NOT NULL,
+  `convocatorias_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `registroconvocatoria`
+-- Estructura de tabla para la tabla `publicoobjetivo`
 --
 
-CREATE TABLE `registroconvocatoria` (
+CREATE TABLE `publicoobjetivo` (
   `id` int(11) NOT NULL,
-  `idConvocatoria` int(11) DEFAULT NULL,
-  `idUsuario` int(11) DEFAULT NULL
+  `nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `roles`
+-- Estructura de tabla para la tabla `requisito-seleccion`
 --
 
-CREATE TABLE `roles` (
+CREATE TABLE `requisito-seleccion` (
   `id` int(11) NOT NULL,
-  `tipoRol` varchar(100) DEFAULT NULL
+  `nombre` varchar(100) DEFAULT NULL,
+  `idTipo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `requisitos`
+--
+
+CREATE TABLE `requisitos` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `obervaciones` varchar(45) DEFAULT NULL,
+  `idEntidad` int(11) NOT NULL,
+  `idRequisitoSeleccion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol`
+--
+
+CREATE TABLE `rol` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -105,30 +224,28 @@ INSERT INTO `roles` (`id`, `tipoRol`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuariointereses`
+-- Estructura de tabla para la tabla `tipo`
 --
 
-CREATE TABLE `usuariointereses` (
+CREATE TABLE `tipo` (
   `id` int(11) NOT NULL,
-  `idUsuario` int(11) NOT NULL,
-  `idInteres` int(11) NOT NULL
+  `nombre` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Estructura de tabla para la tabla `usuario`
 --
 
-CREATE TABLE `usuarios` (
+CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
-  `apellido` varchar(45) NOT NULL,
-  `correo` varchar(45) NOT NULL,
-  `fechaCreacion` datetime DEFAULT current_timestamp(),
-  `fechaActualizacion` datetime DEFAULT NULL ON UPDATE current_timestamp(),
-  `contrasenia` varchar(255) NOT NULL,
-  `idRol` int(11) DEFAULT NULL
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `telefono` varchar(45) DEFAULT NULL,
+  `estado` varchar(45) NOT NULL,
+  `idRol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -147,57 +264,125 @@ INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `correo`, `fechaCreacion`, `
 --
 
 --
+-- Indices de la tabla `chequeo`
+--
+ALTER TABLE `chequeo`
+  ADD PRIMARY KEY (`id`,`IdEmpresa`,`IdRequisito`),
+  ADD KEY `fk_cheks_empresa1_idx` (`IdEmpresa`),
+  ADD KEY `fk_chequeo_requisito-seleccion1_idx` (`IdRequisito`);
+
+--
+-- Indices de la tabla `ciudades`
+--
+ALTER TABLE `ciudades`
+  ADD PRIMARY KEY (`id`,`IdDepartamento`),
+  ADD KEY `fk_ciudades_departamento1_idx` (`IdDepartamento`);
+
+--
 -- Indices de la tabla `convocatorias`
 --
 ALTER TABLE `convocatorias`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_idInstitucion` (`idInstitucion`),
-  ADD KEY `idx_idInteres` (`idInteres`);
+  ADD PRIMARY KEY (`id`,`fkIdEntidad`,`idUsuario`),
+  ADD KEY `fk_convocatorias_entidad-institucion1_idx` (`fkIdEntidad`),
+  ADD KEY `fk_convocatorias_usuario1_idx` (`idUsuario`);
 
 --
--- Indices de la tabla `instituciones`
+-- Indices de la tabla `convocatorias_publicoobjetivo`
 --
-ALTER TABLE `instituciones`
+ALTER TABLE `convocatorias_publicoobjetivo`
+  ADD PRIMARY KEY (`convocatorias_id`,`publicoObjetivo_id`),
+  ADD KEY `fk_convocatorias_has_publicoObjetivo_publicoObjetivo1_idx` (`publicoObjetivo_id`),
+  ADD KEY `fk_convocatorias_has_publicoObjetivo_convocatorias1_idx` (`convocatorias_id`);
+
+--
+-- Indices de la tabla `departamento`
+--
+ALTER TABLE `departamento`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `intereses`
+-- Indices de la tabla `empresa`
 --
-ALTER TABLE `intereses`
+ALTER TABLE `empresa`
+  ADD PRIMARY KEY (`id`,`idUsuario`,`fkIdCiudad`),
+  ADD KEY `fk_empresa_ciudades1_idx` (`fkIdCiudad`),
+  ADD KEY `fk_empresa_usuario1_idx` (`idUsuario`);
+
+--
+-- Indices de la tabla `entidad_institucion`
+--
+ALTER TABLE `entidad_institucion`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `registroconvocatoria`
+-- Indices de la tabla `linea`
 --
-ALTER TABLE `registroconvocatoria`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_idConvocatoria` (`idConvocatoria`),
-  ADD KEY `idx_idUsuario` (`idUsuario`);
-
---
--- Indices de la tabla `roles`
---
-ALTER TABLE `roles`
+ALTER TABLE `linea`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `usuariointereses`
+-- Indices de la tabla `lineas_convocatorias`
 --
-ALTER TABLE `usuariointereses`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_idUsuario` (`idUsuario`),
-  ADD KEY `idx_idInteres` (`idInteres`);
+ALTER TABLE `lineas_convocatorias`
+  ADD PRIMARY KEY (`linea_id`,`convocatorias_id`),
+  ADD KEY `fk_linea_has_convocatorias_convocatorias1_idx` (`convocatorias_id`),
+  ADD KEY `fk_linea_has_convocatorias_linea1_idx` (`linea_id`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indices de la tabla `publicoobjetivo`
 --
-ALTER TABLE `usuarios`
+ALTER TABLE `publicoobjetivo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `requisito-seleccion`
+--
+ALTER TABLE `requisito-seleccion`
+  ADD PRIMARY KEY (`id`,`idTipo`),
+  ADD KEY `fk_requisito-seleccion_tipo1_idx` (`idTipo`);
+
+--
+-- Indices de la tabla `requisitos`
+--
+ALTER TABLE `requisitos`
+  ADD PRIMARY KEY (`id`,`idEntidad`,`idRequisitoSeleccion`),
+  ADD KEY `fk_Requisitos_entidad-institucion1_idx` (`idEntidad`),
+  ADD KEY `fk_Requisitos_requisito-seleccion1_idx` (`idRequisitoSeleccion`);
+
+--
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tipo`
+--
+ALTER TABLE `tipo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_idRol` (`idRol`);
+  ADD KEY `fk_usuario_rol1_idx` (`idRol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `chequeo`
+--
+ALTER TABLE `chequeo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `ciudades`
+--
+ALTER TABLE `ciudades`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `convocatorias`
@@ -206,71 +391,128 @@ ALTER TABLE `convocatorias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `instituciones`
+-- AUTO_INCREMENT de la tabla `departamento`
 --
-ALTER TABLE `instituciones`
+ALTER TABLE `departamento`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `intereses`
+-- AUTO_INCREMENT de la tabla `empresa`
 --
-ALTER TABLE `intereses`
+ALTER TABLE `empresa`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `registroconvocatoria`
+-- AUTO_INCREMENT de la tabla `entidad_institucion`
 --
-ALTER TABLE `registroconvocatoria`
+ALTER TABLE `entidad_institucion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `linea`
+--
+ALTER TABLE `linea`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `publicoobjetivo`
+--
+ALTER TABLE `publicoobjetivo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `roles`
+-- AUTO_INCREMENT de la tabla `requisito-seleccion`
 --
-ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `usuariointereses`
---
-ALTER TABLE `usuariointereses`
+ALTER TABLE `requisito-seleccion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT de la tabla `requisitos`
 --
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `requisitos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo`
+--
+ALTER TABLE `tipo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
+-- Filtros para la tabla `chequeo`
+--
+ALTER TABLE `chequeo`
+  ADD CONSTRAINT `fk_cheks_empresa1` FOREIGN KEY (`IdEmpresa`) REFERENCES `empresa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_chequeo_requisito-seleccion1` FOREIGN KEY (`IdRequisito`) REFERENCES `requisito-seleccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `ciudades`
+--
+ALTER TABLE `ciudades`
+  ADD CONSTRAINT `fk_ciudades_departamento1` FOREIGN KEY (`IdDepartamento`) REFERENCES `departamento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `convocatorias`
 --
 ALTER TABLE `convocatorias`
-  ADD CONSTRAINT `fk_Convocatorias_Instituciones` FOREIGN KEY (`idInstitucion`) REFERENCES `instituciones` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Convocatorias_Intereses` FOREIGN KEY (`idInteres`) REFERENCES `intereses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_convocatorias_entidad-institucion1` FOREIGN KEY (`fkIdEntidad`) REFERENCES `entidad_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_convocatorias_usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `registroconvocatoria`
+-- Filtros para la tabla `convocatorias_publicoobjetivo`
 --
-ALTER TABLE `registroconvocatoria`
-  ADD CONSTRAINT `fk_RegistroConvocatoria_Convocatorias` FOREIGN KEY (`idConvocatoria`) REFERENCES `convocatorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_RegistroConvocatoria_Usuarios` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `convocatorias_publicoobjetivo`
+  ADD CONSTRAINT `fk_convocatorias_has_publicoObjetivo_convocatorias1` FOREIGN KEY (`convocatorias_id`) REFERENCES `convocatorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_convocatorias_has_publicoObjetivo_publicoObjetivo1` FOREIGN KEY (`publicoObjetivo_id`) REFERENCES `publicoobjetivo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `usuariointereses`
+-- Filtros para la tabla `empresa`
 --
-ALTER TABLE `usuariointereses`
-  ADD CONSTRAINT `fk_UsuarioIntereses_Intereses` FOREIGN KEY (`idInteres`) REFERENCES `intereses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_UsuarioIntereses_Usuarios` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `empresa`
+  ADD CONSTRAINT `fk_empresa_ciudades1` FOREIGN KEY (`fkIdCiudad`) REFERENCES `ciudades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_empresa_usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `usuarios`
+-- Filtros para la tabla `lineas_convocatorias`
 --
-ALTER TABLE `usuarios`
-  ADD CONSTRAINT `fk_Usuarios_Roles` FOREIGN KEY (`idRol`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `lineas_convocatorias`
+  ADD CONSTRAINT `fk_linea_has_convocatorias_convocatorias1` FOREIGN KEY (`convocatorias_id`) REFERENCES `convocatorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_linea_has_convocatorias_linea1` FOREIGN KEY (`linea_id`) REFERENCES `linea` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `requisito-seleccion`
+--
+ALTER TABLE `requisito-seleccion`
+  ADD CONSTRAINT `fk_requisito-seleccion_tipo1` FOREIGN KEY (`idTipo`) REFERENCES `tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `requisitos`
+--
+ALTER TABLE `requisitos`
+  ADD CONSTRAINT `fk_Requisitos_entidad-institucion1` FOREIGN KEY (`idEntidad`) REFERENCES `entidad_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Requisitos_requisito-seleccion1` FOREIGN KEY (`idRequisitoSeleccion`) REFERENCES `requisito-seleccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `fk_usuario_rol1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

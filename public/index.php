@@ -1,6 +1,9 @@
 <?php
 
 require_once '../app/config/global.php';
+
+require_once '../app/controllers/lineaController.php';
+require_once '../app/controllers/entidadInstitucionController.php';
 require_once '../app/controllers/homeController.php';
 require_once '../app/controllers/RolController.php';
 require_once '../app/controllers/centroController.php';
@@ -12,7 +15,11 @@ require_once '../app/controllers/menuController.php';
 require_once '../app/controllers/administrarUsuarioController.php';
 require_once '../app/controllers/usuarioInteresController.php';
 require_once '../app/controllers/UserPerfilController.php';
-
+require_once '../app/controllers/administrarUsuariosController.php';
+require_once '../app/controllers/administrarConvocatoriasController.php';
+require_once '../app/controllers/requisitosController.php';
+require_once '../app/controllers/favoritosController.php';
+require_once '../app/controllers/PublicoObjetivoController.php';
 
 // Acceder a lo que llege a la url
 $url = $_SERVER["REQUEST_URI"];

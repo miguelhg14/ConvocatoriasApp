@@ -15,17 +15,13 @@ class ConvocatoriaModel extends BaseModel
     public function __construct(
         private ?int $id = null,
         private ?string $nombre = null,
+        private ?string $fechaRevision = null,
+        private ?string $fechaCierre = null,
         private ?string $descripcion = null,
-        private ?string $fechaInicio = null,
-        private ?string $fechaFin = null,
-        private ?string $requisitos = null,
-        private ?string $beneficios = null,
-        private ?string $modalidad = null,
-        private ?string $ubicacion = null,
-        private ?string $enlaceInscripcion = null,
-        private ?string $imagen = null,
-        private ?int $idInstitucion = null,
-        private ?int $idInteres = null
+        private ?string $objetivo = null,
+        private ?string $observaciones = null,
+        private ?string $fkIdEntidad = null,
+        private ?string $fkIdInvestigador = null,
     ) {
         parent::__construct();
         $this->table = "convocatorias";
@@ -33,41 +29,37 @@ class ConvocatoriaModel extends BaseModel
 
     public function crearConvocatoria(
         string $nombre,
+        string $fechaRevision,
+        string $fechaCierre,
         string $descripcion,
-        string $fechaInicio,
-        string $fechaFin,
-        string $requisitos,
-        string $beneficios,
-        string $modalidad,
-        string $ubicacion,
-        ?string $enlaceInscripcion = null,
-        ?string $imagen = null,
-        ?int $idInstitucion = null,
-        ?int $idInteres = null
+        string $objetivo,
+        string $observaciones,
+        string $fkIdEntidad,
+        string $idUsuario,
+        string $fkIdInvestigador,
     ) {
         try {
             $sql = "INSERT INTO convocatorias (
-                nombre, descripcion, fechaInicio, fechaFin, 
-                requisitos, beneficios, modalidad, ubicacion, 
-                enlaceInscripcion, imagen, idInstitucion, idInteres
+                nombre, fechaRevision, fechaCierre, descripcion,
+                objetivo, observaciones, fkIdEntidad, idUsuario, 
+                fkIdInvestigador
             ) VALUES (
-                :nombre, :descripcion, :fechaInicio, :fechaFin,
-                :requisitos, :beneficios, :modalidad, :ubicacion,
-                :enlaceInscripcion, NULLIF(:imagen, ''), 1, :idInteres
+                :nombre,  :fechaRevision, :fechaCierre, :descripcion,
+                :objetivo, :observaciones, :fkIdEntidad, :fkIdInvestigador,
+                :idUsuario
             )";
 
             $stmt = $this->dbConnection->prepare($sql);
             $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':fechaRevision', $fechaRevision);
+            $stmt->bindParam(':fechaCierre', $fechaCierre);
             $stmt->bindParam(':descripcion', $descripcion);
-            $stmt->bindParam(':fechaInicio', $fechaInicio);
-            $stmt->bindParam(':fechaFin', $fechaFin);
-            $stmt->bindParam(':requisitos', $requisitos);
-            $stmt->bindParam(':beneficios', $beneficios);
-            $stmt->bindParam(':modalidad', $modalidad);
-            $stmt->bindParam(':ubicacion', $ubicacion);
-            $stmt->bindParam(':enlaceInscripcion', $enlaceInscripcion);
-            $stmt->bindParam(':imagen', $imagen);
-            $stmt->bindParam(':idInteres', $idInteres);
+            $stmt->bindParam(':objetivo', $objetivo);
+            $stmt->bindParam(':observaciones', $observaciones);
+            $stmt->bindParam(':fkIdEntidad', $fkIdEntidad);
+            $stmt->bindParam(':idUsuario', $idUsuario);
+            $stmt->bindParam(':fkIdInvestigador', $fkIdInvestigador);
+
 
             return $stmt->execute();
         } catch (PDOException $e) {
@@ -93,12 +85,12 @@ class ConvocatoriaModel extends BaseModel
         int $id,
         string $nombre,
         string $descripcion,
-        string $fechaInicio,
-        string $fechaFin,
-        string $requisitos,
-        string $beneficios,
-        string $modalidad,
-        string $ubicacion,
+        string $fechaRevision,
+        string $fechaCierre,
+        string $objetivo,
+        string $observaciones,
+        string $fkIdEntidad,
+        string $fkIdInvestigador,
         ?string $enlaceInscripcion = null,
         ?string $imagen = null,
         ?int $idInteres = null
@@ -107,12 +99,12 @@ class ConvocatoriaModel extends BaseModel
             $sql = "UPDATE convocatorias SET 
                 nombre = :nombre, 
                 descripcion = :descripcion,
-                fechaInicio = :fechaInicio,
-                fechaFin = :fechaFin,
-                requisitos = :requisitos,
-                beneficios = :beneficios,
-                modalidad = :modalidad,
-                ubicacion = :ubicacion,
+                fechaRevision = :fechaRevision,
+                fechaCierre = :fechaCierre,
+                objetivo = :objetivo,
+                observaciones = :observaciones,
+                fkIdEntidad = :fkIdEntidad,
+                fkIdInvestigador = :fkIdInvestigador,
                 enlaceInscripcion = :enlaceInscripcion,
                 imagen = NULLIF(:imagen, ''),
                 idInteres = :idInteres
@@ -124,12 +116,12 @@ class ConvocatoriaModel extends BaseModel
                 ':id' => $id,
                 ':nombre' => $nombre,
                 ':descripcion' => $descripcion,
-                ':fechaInicio' => $fechaInicio,
-                ':fechaFin' => $fechaFin,
-                ':requisitos' => $requisitos,
-                ':beneficios' => $beneficios,
-                ':modalidad' => $modalidad,
-                ':ubicacion' => $ubicacion,
+                ':fechaRevision' => $fechaRevision,
+                ':fechaCierre' => $fechaCierre,
+                ':objetivo' => $objetivo,
+                ':observaciones' => $observaciones,
+                ':fkIdEntidad' => $fkIdEntidad,
+                ':fkIdInvestigador' => $fkIdInvestigador,
                 ':enlaceInscripcion' => $enlaceInscripcion,
                 ':imagen' => $imagen,
                 ':idInteres' => $idInteres
