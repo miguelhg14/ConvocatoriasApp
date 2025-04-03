@@ -120,5 +120,22 @@ return [
     '/requisitos/update/(\d+)' => ['controller' => 'App\Controller\RequisitosController', 'action' => 'updateRequisitos'],
     '/requisitos/delete/(\d+)' => ['controller' => 'App\Controller\RequisitosController', 'action' => 'deleteRequisitos'],
 
+        // Rutas para RequisitoSeleccion
+        '/requisitoSeleccion/init' => ['controller' => 'App\Controller\RequisitoSeleccionController', 'action' => 'initRequisitoSeleccion'],
+        '/requisitoSeleccion/new' => ['controller' => 'App\Controller\RequisitoSeleccionController', 'action' => 'new'],
+        '/requisitoSeleccion/create' => ['controller' => 'App\Controller\RequisitoSeleccionController', 'action' => 'create'],
+        '/requisitoSeleccion/view/(\d+)' => ['controller' => 'App\Controller\RequisitoSeleccionController', 'action' => 'view'],
+        '/requisitoSeleccion/edit/(\d+)' => ['controller' => 'App\Controller\RequisitoSeleccionController', 'action' => 'editRequisitoSeleccion'],
+        '/requisitoSeleccion/update/(\d+)' => ['controller' => 'App\Controller\RequisitoSeleccionController', 'action' => 'updateRequisitoSeleccion'],
+        '/requisitoSeleccion/delete/(\d+)' => ['controller' => 'App\Controller\RequisitoSeleccionController', 'action' => 'deleteRequisitoSeleccion'],
+
+            // Rutas para Tipo
+    '/tipo/init' => ['controller' => 'App\Controller\TipoController', 'action' => 'initTipo'],
+    '/tipo/new' => ['controller' => 'App\Controller\TipoController', 'action' => 'new'],
+    '/tipo/create' => ['controller' => 'App\Controller\TipoController', 'action' => 'create'],
+    '/tipo/view/(\d+)' => ['controller' => 'App\Controller\TipoController', 'action' => 'view'],
+    '/tipo/edit/(\d+)' => ['controller' => 'App\Controller\TipoController', 'action' => 'editTipo'],
+    '/tipo/update/(\d+)' => ['controller' => 'App\Controller\TipoController', 'action' => 'updateTipo'],
+    '/tipo/delete/(\d+)' => ['controller' => 'App\Controller\TipoController', 'action' => 'deleteTipo'],
 ];
 

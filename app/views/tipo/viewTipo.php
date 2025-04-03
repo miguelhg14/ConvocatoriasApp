@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    /* Estilos existentes */
+    /* Same styles as original */
     .list-group-item {
         border-radius: 0 !important;
         border-left: 4px solid transparent;
@@ -23,7 +23,6 @@
         width: 20px;
     }
 
-    /* Nuevos estilos para header y footer */
     .custom-header {
         background: linear-gradient(135deg, #0d6efd 0%, #0099ff 100%);
         padding: 1rem 0;
@@ -86,16 +85,16 @@
                             <a href="/entidadInstitucion/init" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <i class="fas fa-building me-2"></i> Entidad Institución
                             </a>
-                            <a href="/rol/index" class="list-group-item list-group-item-action active d-flex align-items-center">
+                            <a href="/rol/index" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <i class="fas fa-user-tag me-2"></i> Rol
                             </a>
                             <a href="/requisitoSeleccion/init" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <i class="fas fa-tasks me-2"></i> Requisitos Selección
                             </a>
-                            <a href="/tipo/init" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <a href="/tipo/init" class="list-group-item list-group-item-action active d-flex align-items-center">
                                 <i class="fas fa-tag me-2"></i> Tipo
                             </a>
-                            <a href="/convocatorias/init" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <a href="/convocatoria/lista" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <i class="fas fa-bullhorn me-2"></i> Convocatorias
                             </a>
                         </div>
@@ -105,38 +104,30 @@
 
             <!-- Contenido Principal -->
             <div class="col-md-10">
-                <div class="card shadow">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0">
-                            Editar Rol
-                            <a href="/rol/index" class="btn btn-light float-end">
-                                <i class="fas fa-arrow-left me-2"></i>Volver
-                            </a>
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-center">
-                            <div class="col-md-6">
-                                <form action="/rol/update" method="post">
-                                    <div class="mb-3">
-                                        <label for="txtId" class="form-label fw-bold">ID</label>
-                                        <input type="text" class="form-control" value="<?php echo $infoReal->id; ?>" 
-                                               name="txtId" id="txtId" readonly>
+                <div class="container">
+                    <!-- Botón Nuevo con estilo Bootstrap -->
+                    <a href="/tipo/new" class="btn btn-primary mb-3">
+                        <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABzklEQVRIS7WVPUsDQRCGd3MBDShiJ4poZSFo8AcINoIflVpoo5WINiIIVn5ibSGCIHZaCBaSQhEECxGsLNJJUMTGXlIIYvbWZ+Ricpe73CWcB1vc7Oz77M7Mzkrxz5/8Z31RFaC1bhBKTQkpR9hImtHN0Iw3RlZofS0s60JK+R200UAA4qPCtg8d0WoHfRGJxCKQWz8nX4BWahvnrRrCZ+O7Ji1rz7umAoD4Dk6bNYiXu64A2S83uACEZZywXNYpbpbZhGuQcD0UNf4AiDch/sxEW2DCLOvXn1OaRAd9OSB9xcSXAEotscIkNfDj+FEAAsAEgIwRKgEKhSvKcSwWgBDHbGbBDVDqHUN7TIAsgAEv4BNDylUBTkjCku6Tkw8ArV5AHkNzTIA8gBYvIIehJ6YQPQHo9QLOMMzEBDgFMOetolmq6CQWgNbTMpk8dwO0TnHRTJg6gyAR74G5aGnuwZcLYH64zcNAbsKqpsq8aRVDiN8Xffya3TqTu3VCljnlgasS/YSo6w3spqtGffEUvqveTloRonKY01mPsHWEnMY8OPOE5c7PL+zJbOTJnHR6VD8CXSZVjFfGI8ImXxnEC4GFUWesIy+LGuPIgl7HH8BGsBl9FV1ZAAAAAElFTkSuQmCC' alt='Nuevo' class="me-2"/>
+                        Nuevo
+                    </a>
+
+                    <!-- Lista de registros -->
+                    <?php if (isset($tipos) && is_array($tipos)): ?>
+                        <div class="list-group">
+                            <?php foreach ($tipos as $key => $value): ?>
+                                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="fw-bold"><?= $value->id ?> - <?= $value->nombre ?></span>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="txtNombre" class="form-label fw-bold">Nombre del Rol</label>
-                                        <input type="text" class="form-control" value="<?php echo $infoReal->tipoRol; ?>" 
-                                               name="txtNombre" id="txtNombre" required>
+                                    <div class="btn-group">
+                                        <a href="/tipo/view/<?= $value->id ?>" class="btn btn-sm btn-outline-primary">Consultar</a>
+                                        <a href="/tipo/edit/<?= $value->id ?>" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                        <a href="/tipo/delete/<?= $value->id ?>" class="btn btn-sm btn-outline-danger">Eliminar</a>
                                     </div>
-                                    <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fas fa-save me-2"></i>Guardar Cambios
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

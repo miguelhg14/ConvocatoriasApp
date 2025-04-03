@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-03-2025 a las 23:41:43
+-- Tiempo de generación: 03-04-2025 a las 00:32:53
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -64,6 +64,14 @@ CREATE TABLE `convocatorias` (
   `idUsuario` int(11) NOT NULL,
   `fkIdInvestigador` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `convocatorias`
+--
+
+INSERT INTO `convocatorias` (`id`, `nombre`, `fechaRevision`, `fechaCierre`, `descripcion`, `objetivo`, `observaciones`, `fkIdEntidad`, `idUsuario`, `fkIdInvestigador`) VALUES
+(1, 'bvvbvb', '0000-00-00 00:00:00', '2000-02-23', '2000-04-25', 'ghjhjh', 'hjghgh', 1, 1, 1),
+(2, 'bvvbvbsddssd', '0000-00-00 00:00:00', '2000-02-23', '2001-02-23', 'kskdksdkksd', 'kskdkskksdk', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -132,7 +140,7 @@ CREATE TABLE `entidad_institucion` (
 --
 
 INSERT INTO `entidad_institucion` (`id`, `nombre`) VALUES
-(1, 'ramon');
+(1, 'ramons');
 
 -- --------------------------------------------------------
 
@@ -151,7 +159,8 @@ CREATE TABLE `linea` (
 --
 
 INSERT INTO `linea` (`id`, `nombre`, `descripcion`) VALUES
-(2, 'Alicate', '21\r\n');
+(2, 'Alicate', '21\r\n'),
+(3, 'convoca', 'sfdsfd');
 
 -- --------------------------------------------------------
 
@@ -174,6 +183,13 @@ CREATE TABLE `publicoobjetivo` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `publicoobjetivo`
+--
+
+INSERT INTO `publicoobjetivo` (`id`, `nombre`) VALUES
+(1, 'convoca');
 
 -- --------------------------------------------------------
 
@@ -201,6 +217,15 @@ CREATE TABLE `requisitos` (
   `idRequisitoSeleccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `requisitos`
+--
+
+INSERT INTO `requisitos` (`id`, `nombre`, `obervaciones`, `idEntidad`, `idRequisitoSeleccion`) VALUES
+(1, 'mm', 'mmm', 1, 1),
+(2, 'mm', 'hgffgh', 1, 1),
+(3, 'mm', 'gsfd', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -213,13 +238,12 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `roles`
+-- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `roles` (`id`, `tipoRol`) VALUES
-(1, 'Administrador'),
-(2, 'Usuario'),
-(3, 'Empresa');
+INSERT INTO `rol` (`id`, `nombre`) VALUES
+(1, 'rol'),
+(2, 'ramon');
 
 -- --------------------------------------------------------
 
@@ -247,17 +271,6 @@ CREATE TABLE `usuario` (
   `estado` varchar(45) NOT NULL,
   `idRol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `correo`, `fechaCreacion`, `fechaActualizacion`, `contrasenia`, `idRol`) VALUES
-(1, 'Juan', 'Pérez', 'juan.perez@example.com', '2025-03-22 17:24:49', '2025-03-22 17:24:49', '$2y$10$E2Z6z8Q7r8Q7r8Q7r8Q7rO', 1),
-(2, 'María', 'Gómez', 'maria.gomez@example.com', '2025-03-22 17:24:49', '2025-03-22 17:24:49', '$2y$10$E2Z6z8Q7r8Q7r8Q7r8Q7rO', 2),
-(3, 'Carlos', 'López', 'carlos.lopez@example.com', '2025-03-22 17:24:49', '2025-03-22 17:24:49', '$2y$10$E2Z6z8Q7r8Q7r8Q7r8Q7rO', 1),
-(4, 'Ana', 'Martínez', 'ana.martinez@example.com', '2025-03-22 17:24:49', '2025-03-22 17:24:49', '$2y$10$E2Z6z8Q7r8Q7r8Q7r8Q7rO', 3),
-(5, 'Luis', 'Rodríguez', 'luis.rodriguez@example.com', '2025-03-22 17:24:49', '2025-03-22 17:24:49', '$2y$10$E2Z6z8Q7r8Q7r8Q7r8Q7rO', 2);
 
 --
 -- Índices para tablas volcadas
@@ -388,7 +401,7 @@ ALTER TABLE `ciudades`
 -- AUTO_INCREMENT de la tabla `convocatorias`
 --
 ALTER TABLE `convocatorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -412,13 +425,13 @@ ALTER TABLE `entidad_institucion`
 -- AUTO_INCREMENT de la tabla `linea`
 --
 ALTER TABLE `linea`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `publicoobjetivo`
 --
 ALTER TABLE `publicoobjetivo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `requisito-seleccion`
@@ -430,13 +443,13 @@ ALTER TABLE `requisito-seleccion`
 -- AUTO_INCREMENT de la tabla `requisitos`
 --
 ALTER TABLE `requisitos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo`
@@ -449,70 +462,6 @@ ALTER TABLE `tipo`
 --
 ALTER TABLE `usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `chequeo`
---
-ALTER TABLE `chequeo`
-  ADD CONSTRAINT `fk_cheks_empresa1` FOREIGN KEY (`IdEmpresa`) REFERENCES `empresa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_chequeo_requisito-seleccion1` FOREIGN KEY (`IdRequisito`) REFERENCES `requisito-seleccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `ciudades`
---
-ALTER TABLE `ciudades`
-  ADD CONSTRAINT `fk_ciudades_departamento1` FOREIGN KEY (`IdDepartamento`) REFERENCES `departamento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `convocatorias`
---
-ALTER TABLE `convocatorias`
-  ADD CONSTRAINT `fk_convocatorias_entidad-institucion1` FOREIGN KEY (`fkIdEntidad`) REFERENCES `entidad_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_convocatorias_usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `convocatorias_publicoobjetivo`
---
-ALTER TABLE `convocatorias_publicoobjetivo`
-  ADD CONSTRAINT `fk_convocatorias_has_publicoObjetivo_convocatorias1` FOREIGN KEY (`convocatorias_id`) REFERENCES `convocatorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_convocatorias_has_publicoObjetivo_publicoObjetivo1` FOREIGN KEY (`publicoObjetivo_id`) REFERENCES `publicoobjetivo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `empresa`
---
-ALTER TABLE `empresa`
-  ADD CONSTRAINT `fk_empresa_ciudades1` FOREIGN KEY (`fkIdCiudad`) REFERENCES `ciudades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_empresa_usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `lineas_convocatorias`
---
-ALTER TABLE `lineas_convocatorias`
-  ADD CONSTRAINT `fk_linea_has_convocatorias_convocatorias1` FOREIGN KEY (`convocatorias_id`) REFERENCES `convocatorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_linea_has_convocatorias_linea1` FOREIGN KEY (`linea_id`) REFERENCES `linea` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `requisito-seleccion`
---
-ALTER TABLE `requisito-seleccion`
-  ADD CONSTRAINT `fk_requisito-seleccion_tipo1` FOREIGN KEY (`idTipo`) REFERENCES `tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `requisitos`
---
-ALTER TABLE `requisitos`
-  ADD CONSTRAINT `fk_Requisitos_entidad-institucion1` FOREIGN KEY (`idEntidad`) REFERENCES `entidad_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Requisitos_requisito-seleccion1` FOREIGN KEY (`idRequisitoSeleccion`) REFERENCES `requisito-seleccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_usuario_rol1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -90,7 +90,7 @@
         <a href="/rol/index" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-user-tag me-2"></i> Rol
         </a>
-        <a href="/requisitosSeleccion/init" class="list-group-item list-group-item-action d-flex align-items-center">
+        <a href="/requisitoSeleccion/init" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-tasks me-2"></i> Requisitos Selección
         </a>
         <a href="/tipo/init" class="list-group-item list-group-item-action d-flex align-items-center">

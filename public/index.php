@@ -20,6 +20,9 @@ require_once '../app/controllers/administrarConvocatoriasController.php';
 require_once '../app/controllers/requisitosController.php';
 require_once '../app/controllers/favoritosController.php';
 require_once '../app/controllers/PublicoObjetivoController.php';
+require_once '../app/controllers/RequisitoSeleccionController.php';
+require_once '../app/controllers/TipoController.php';
+
 
 // Acceder a lo que llege a la url
 $url = $_SERVER["REQUEST_URI"];

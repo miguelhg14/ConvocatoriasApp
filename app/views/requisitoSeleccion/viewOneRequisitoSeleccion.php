@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    /* Estilos existentes */
     .list-group-item {
         border-radius: 0 !important;
         border-left: 4px solid transparent;
@@ -23,7 +22,6 @@
         width: 20px;
     }
 
-    /* Nuevos estilos para header y footer */
     .custom-header {
         background: linear-gradient(135deg, #0d6efd 0%, #0099ff 100%);
         padding: 1rem 0;
@@ -86,16 +84,16 @@
                             <a href="/entidadInstitucion/init" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <i class="fas fa-building me-2"></i> Entidad Institución
                             </a>
-                            <a href="/rol/index" class="list-group-item list-group-item-action active d-flex align-items-center">
+                            <a href="/rol/index" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <i class="fas fa-user-tag me-2"></i> Rol
                             </a>
-                            <a href="/requisitoSeleccion/init" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <a href="/requisitoSeleccion/init" class="list-group-item list-group-item-action active d-flex align-items-center">
                                 <i class="fas fa-tasks me-2"></i> Requisitos Selección
                             </a>
                             <a href="/tipo/init" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <i class="fas fa-tag me-2"></i> Tipo
                             </a>
-                            <a href="/convocatorias/init" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <a href="/convocatoria/lista" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <i class="fas fa-bullhorn me-2"></i> Convocatorias
                             </a>
                         </div>
@@ -107,35 +105,34 @@
             <div class="col-md-10">
                 <div class="card shadow">
                     <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0">
-                            Editar Rol
-                            <a href="/rol/index" class="btn btn-light float-end">
-                                <i class="fas fa-arrow-left me-2"></i>Volver
-                            </a>
-                        </h4>
+                        <h5 class="mb-0">Detalles del Requisito de Selección</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row justify-content-center">
-                            <div class="col-md-6">
-                                <form action="/rol/update" method="post">
-                                    <div class="mb-3">
-                                        <label for="txtId" class="form-label fw-bold">ID</label>
-                                        <input type="text" class="form-control" value="<?php echo $infoReal->id; ?>" 
-                                               name="txtId" id="txtId" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="txtNombre" class="form-label fw-bold">Nombre del Rol</label>
-                                        <input type="text" class="form-control" value="<?php echo $infoReal->tipoRol; ?>" 
-                                               name="txtNombre" id="txtNombre" required>
-                                    </div>
-                                    <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fas fa-save me-2"></i>Guardar Cambios
-                                        </button>
-                                    </div>
-                                </form>
+                        <form action="/requisitoSeleccion/create" method="post">
+                        <div class="mb-3 row">
+                                <label class="col-sm-2 col-form-label fw-bold">ID:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control-plaintext" value="<?php echo $requisito['id']; ?>" readonly>
+                                </div>
                             </div>
-                        </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-2 col-form-label fw-bold">Nombre:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control-plaintext" value="<?php echo $requisito['nombre']; ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-2 col-form-label fw-bold">Tipo ID:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control-plaintext" value="<?php echo $requisito['idTipo']; ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <a href="/requisitoSeleccion/init" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left me-2"></i> Volver
+                                </a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
